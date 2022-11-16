@@ -2,6 +2,17 @@ body {
     background-color: #e0fcfc;
 }
 
+.button {
+    display: block;
+    padding: 7px 12px;
+    margin-bottom: 10px;
+    width: 5%;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    background-color: blue;
+    border: 3px solid pink;
+}
 
 table,
 th,

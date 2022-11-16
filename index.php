@@ -3,19 +3,19 @@ $reseveeringen = [
     [
         'name' => 'Roel Hoogendoorn',
         'email' => 'roelhoogendoorn01369@gmail.com',
-        'day' => 'Maandag',
+        'date' => 'Woensdag 16-11',
         'time' => '4:20'
     ],
     [
         'name' => 'Zhong Xina',
         'email' => 'Zhong@gmail.com',
-        'day' => 'Dinsdag',
+        'date' => 'Woensdag 20-4',
         'time' => '1:11'
     ],
     [
         'name' => 'Mr Placeholder',
         'email' => 'Placeholder@outlook.com',
-        'day' => 'Woensdag',
+        'date' => 'Maandag 14-11',
         'time' => '2:30'
     ]
 ];
@@ -33,19 +33,20 @@ $reseveeringen = [
 
 <body>
 <h1>Reseveerings-syssteem</h1>
+<a class="button" href="https://www.parrotfarm.nl/contact/">Terug</a>
 
 <table>
     <tr>
         <th>Naam</th>
         <th>Contact</th>
-        <th>Dag</th>
+        <th>Datum</th>
         <th>Tijd</th>
     </tr>
     <?php foreach ($reseveeringen as $klant) { ?>
         <tr>
             <td><?= $klant['name']; ?></td>
             <td><?= $klant['email']; ?></td>
-            <td><?= $klant['day']; ?></td>
+            <td><?= $klant['date']; ?></td>
             <td><?= $klant['time']; ?></td>
         </tr>
     <?php } ?>
