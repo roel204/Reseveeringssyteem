@@ -10,6 +10,9 @@ require_once 'data.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+          href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
+          sizes="32x32">
     <title>Reseveer</title>
 </head>
 
@@ -17,7 +20,7 @@ require_once 'data.php';
 <a class="back" href="https://www.parrotfarm.nl/contact/">Terug naar contact</a>
 <h1>Reseveerings-syssteem</h1>
 <section class="system">
-    <input class="new" type="button" value="Nieuwe afspraak">
+    <a class="new" href="form.php">Nieuwe afspraak maken.</a>
     <table>
         <tr>
             <th>Naam</th>
