@@ -1,24 +1,6 @@
 <?php
-$reseveeringen = [
-    [
-        'name' => 'Roel Hoogendoorn',
-        'email' => 'roelhoogendoorn01369@gmail.com',
-        'date' => 'Woensdag 16-11',
-        'time' => '4:20'
-    ],
-    [
-        'name' => 'Zhong Xina',
-        'email' => 'Zhong@gmail.com',
-        'date' => 'Woensdag 20-4',
-        'time' => '1:11'
-    ],
-    [
-        'name' => 'Mr Placeholder',
-        'email' => 'Placeholder@outlook.com',
-        'date' => 'Maandag 14-11',
-        'time' => '2:30'
-    ]
-];
+/** @var array $reseveeringen */
+require_once 'data.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,30 +9,36 @@ $reseveeringen = [
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Reseveer</title>
 </head>
 
 <body>
+<a class="back" href="https://www.parrotfarm.nl/contact/">Terug naar contact</a>
 <h1>Reseveerings-syssteem</h1>
-<a class="button" href="https://www.parrotfarm.nl/contact/">Terug</a>
-
-<table>
-    <tr>
-        <th>Naam</th>
-        <th>Contact</th>
-        <th>Datum</th>
-        <th>Tijd</th>
-    </tr>
-    <?php foreach ($reseveeringen as $klant) { ?>
+<section class="system">
+    <input class="new" type="button" value="Nieuwe afspraak">
+    <table>
         <tr>
-            <td><?= $klant['name']; ?></td>
-            <td><?= $klant['email']; ?></td>
-            <td><?= $klant['date']; ?></td>
-            <td><?= $klant['time']; ?></td>
+            <th>Naam</th>
+            <th>Contact</th>
+            <th>Afspraak</th>
+            <th>Datum</th>
+            <th>Tijd</th>
+            <th>Details</th>
         </tr>
-    <?php } ?>
-</table>
+        <?php foreach ($reseveeringen as $klant) { ?>
+            <tr>
+                <td><?= $klant['name']; ?></td>
+                <td><?= $klant['mail']; ?></td>
+                <td><?= $klant['type']; ?></td>
+                <td><?= $klant['date']; ?></td>
+                <td><?= $klant['time']; ?></td>
+                <td><a href="detail.php?index=">Details</a></td>
+            </tr>
+        <?php } ?>
+    </table>
+</section>
 </body>
 
 </html>
