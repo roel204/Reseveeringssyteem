@@ -82,10 +82,7 @@ li {
 /* Start Form*/
 
 form {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin: 4% 15%;
     padding-bottom: 20px;
     padding-top: 20px;
     border: solid 2px black;
@@ -93,7 +90,8 @@ form {
 
 input,
 select,
-button {
+button,
+textarea {
     padding: 10px;
     margin: 10px;
     width: 50%;

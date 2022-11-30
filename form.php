@@ -37,7 +37,7 @@
     </section>
     <section class="formfield">
         <label for="message">bericht:</label>
-        <input type="text" name="message" id="message" autocomplete="off">
+        <textarea name="message" id="message" autocomplete="off"></textarea>
     </section>
     <section class="formfield">
         <label for="date">Datum:</label>
