@@ -14,19 +14,14 @@
 
 <body>
 <a class="back" href="index.php">Terug naar afspraken</a>
-<form action="">
+<form action="index.php" method="post">
     <section class="formfield">
         <label for="naam">Naam:</label>
         <input type="text" name="naam" id="naam" placeholder="Voornaam Achternaam" required autocomplete="off">
     </section>
     <section class="formfield">
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" placeholder="name@mail.com" autocomplete="off">
-    </section>
-    <section class="formfield">
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]{2} [0-9]{8}" placeholder="06 12345678"
-               autocomplete="off">
+        <input type="email" name="email" id="email" placeholder="name@mail.com" required autocomplete="off">
     </section>
     <section class="formfield">
         <label for="afspraak">Afspraak:</label>
@@ -37,7 +32,20 @@
             <option value="nagels">Nagels laten knippen.</option>
             <option value="veren">Veren laten knippen.</option>
             <option value="opvang">Opvang voor mijn vogel regelen.</option>
+            <option value="other">Anders. (Geef reden aan in bericht)</option>
         </select>
+    </section>
+    <section class="formfield">
+        <label for="message">bericht:</label>
+        <input type="text" name="message" id="message" autocomplete="off">
+    </section>
+    <section class="formfield">
+        <label for="date">Datum:</label>
+        <input type="date" name="date" id="date" required>
+    </section>
+    <section class="formfield">
+        <label for="time">Tijd:</label>
+        <input type="time" name="time" id="time" required>
     </section>
     <section class="formfield">
         <button type="submit">Submit</button>

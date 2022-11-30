@@ -1,5 +1,6 @@
 body {
     background-color: #e0fcfc;
+    font-family: Arial;
     text-align: center;
     margin-left: 0;
     margin-right: 0;
@@ -9,11 +10,17 @@ body {
     display: block;
     padding: 7px 12px;
     text-align: center;
-    color: white;
     text-decoration: none;
-    background-color: blue;
-    border: 3px solid pink;
+    background-color: #8585ff;
+    border: 3px solid black;
+    color: black;
     position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.back:hover {
+    background-color: #b1b1ff;
 }
 
 th {
@@ -64,14 +71,23 @@ tr:nth-child(odd) {
 
 ul {
     text-align: left;
+    margin-top: 60px;
 }
+
+li {
+    margin: 5px;
+}
+
 
 /* Start Form*/
 
 form {
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: 15%;
     margin-right: 15%;
     padding-bottom: 20px;
+    padding-top: 20px;
     border: solid 2px black;
 }
 
@@ -120,6 +136,10 @@ button[type=submit], input[type=reset] {
 
 button[type=submit]:hover, input[type=reset]:hover {
     background-color: #b1b1ff;
+}
+
+#message {
+    height: 150px;
 }
 
 /* End Form */
