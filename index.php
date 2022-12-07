@@ -42,8 +42,7 @@ mysqli_close($db);
             <th>Email</th>
             <th>Afspraak</th>
             <th>Bericht</th>
-            <th>Datum</th>
-            <th>Tijd</th>
+            <th>Datum/Tijd</th>
             <th>Details</th>
         </tr>
         <?php foreach ($reservations as $klant) { ?>
@@ -52,8 +51,7 @@ mysqli_close($db);
                 <td><?= $klant['email']; ?></td>
                 <td><?= $klant['reason']; ?></td>
                 <td><?= $klant['message']; ?></td>
-                <td><?= $klant['date']; ?></td>
-                <td><?= $klant['time']; ?></td>
+                <td><?= $klant['dateTime']; ?></td>
                 <td><a href="detail.php?id=<?= $klant['id']; ?>">Details</a></td>
             </tr>
         <?php } ?>

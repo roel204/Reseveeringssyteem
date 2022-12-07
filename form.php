@@ -6,40 +6,34 @@ $nameAnswer = '';
 $emailAnswer = '';
 $reasonAnswer = '';
 $messageAnswer = '';
-$dateAnswer = '';
-$timeAnswer = '';
+$dateTimeAnswer = '';
 
 $nameError = '';
 $emailError = '';
 $reasonError = '';
-$dateError = '';
-$timeError = '';
+$dateTimeError = '';
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $nameAnswer = $_POST['name'];
     $emailAnswer = $_POST['email'];
     $reasonAnswer = $_POST['reason'];
     $messageAnswer = $_POST['message'];
-    $dateAnswer = $_POST['date'];
-    $timeAnswer = $_POST['time'];
+    $dateTimeAnswer = $_POST['dateTime'];
 
-    if($_POST['name'] == '') {
+    if ($_POST['name'] == '') {
         $nameError = 'Dit veld mag niet leeg zijn.';
     }
-    if($_POST['email'] == '') {
+    if ($_POST['email'] == '') {
         $emailError = 'Dit veld mag niet leeg zijn.';
     }
-    if($_POST['reason'] == '') {
+    if ($_POST['reason'] == '') {
         $reasonError = 'Dit veld mag niet leeg zijn.';
     }
-    if($_POST['date'] == '') {
-        $dateError = 'Dit veld mag niet leeg zijn.';
+    if ($_POST['dateTime'] == '') {
+        $dateTimeError = 'Dit veld mag niet leeg zijn.';
     }
-    if($_POST['time'] == '') {
-        $timeError = 'Dit veld mag niet leeg zijn.';
-    }
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time'])) {
-        $query = "INSERT INTO reservations (`name`, `email`, `reason`, `message`, `date`, `time`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['dateTime'])) {
+        $query = "INSERT INTO reservations (`name`, `email`, `reason`, `message`, `dateTime`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateTimeAnswer')";
         mysqli_query($db, $query);
         header('Location: index.php');
         exit;
@@ -66,12 +60,14 @@ mysqli_close($db);
 <form action="" method="post" class="create">
     <section class="formfield">
         <label for="naam">Naam:</label>
-        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $nameAnswer ?>" autocomplete="off">
+        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $nameAnswer ?>"
+               autocomplete="off">
     </section>
     <p class="error"><?= $nameError ?></p>
     <section class="formfield">
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $emailAnswer ?>" autocomplete="off">
+        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $emailAnswer ?>"
+               autocomplete="off">
     </section>
     <p class="error"><?= $emailError ?></p>
     <section class="formfield">
@@ -92,18 +88,12 @@ mysqli_close($db);
         <textarea name="message" id="message" value="<?= $messageAnswer ?>" autocomplete="off"></textarea>
     </section>
     <section class="formfield">
-        <label for="date">Datum:</label>
-        <input type="date" name="date" id="date" value="<?= $dateAnswer ?>">
+        <label for="dateTime">Datum:</label>
+        <input type="datetime-local" name="dateTime" id="dateTime" value="<?= $dateTimeAnswer ?>">
     </section>
-    <p class="error"><?= $dateError ?></p>
-    <section class="formfield">
-        <label for="time">Tijd:</label>
-        <input type="time" name="time" id="time" value="<?= $timeAnswer ?>">
-    </section>
-    <p class="error"><?= $timeError ?></p>
+    <p class="error"><?= $dateTimeError ?></p>
     <section class="formfield">
         <button type="submit" name="submit">Submit</button>
-        <input id="reset" type="reset">
     </section>
 </form>
 </body>

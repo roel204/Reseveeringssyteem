@@ -44,8 +44,7 @@ mysqli_close($db);
         <li>Email: <?= $row['email']; ?></li>
         <li>Afspraak: <?= $row['reason']; ?></li>
         <li>Bericht: <?= $row['message']; ?></li>
-        <li>Datum: <?= $row['date']; ?></li>
-        <li>Tijd: <?= $row['time']; ?></li>
+        <li>Datum/Tijd: <?= $row['dateTime']; ?></li>
     </ul>
 </section>
 
