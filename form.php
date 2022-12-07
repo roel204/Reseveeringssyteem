@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     $emailAnswer = $_POST['email'];
     $reasonAnswer = $_POST['reason'];
     $messageAnswer = $_POST['message'];
-    $dateTimeAnswer = $_POST['dateTime'];
+    $dateTimeAnswer = date('Y-m-d H:i', strtotime($_POST['dateTime']));
 
     if ($_POST['name'] == '') {
         $nameError = 'Dit veld mag niet leeg zijn.';

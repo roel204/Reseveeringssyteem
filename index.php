@@ -51,7 +51,7 @@ mysqli_close($db);
                 <td><?= $klant['email']; ?></td>
                 <td><?= $klant['reason']; ?></td>
                 <td><?= $klant['message']; ?></td>
-                <td><?= $klant['dateTime']; ?></td>
+                <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>
                 <td><a href="detail.php?id=<?= $klant['id']; ?>">Details</a></td>
             </tr>
         <?php } ?>
