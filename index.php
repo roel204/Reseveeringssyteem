@@ -1,33 +1,19 @@
 <?php
 /** @var array $db */
-// Setup connection with database
 require_once 'connection.php';
 
 $query = "SELECT * FROM reservations";
-// Stap 4: Query uitvoeren op de database. Als dit goed gaat, geeft
-//         mysqli_query een mysqli_result terug. Let op, dit is een tabel.
-// Stap 5: Foutafhandeling. Als de query niet uitgevoerd kan worden treedt
-//         er een foutmelding op via "or die". Ook de query, met ingevulde
-//         variabelen, wordt op het scherm getoond. Deze kan je kopieren
-//         en plakken in PhpMyAdmin om te kijken waarom het fout gaat.
+
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 
-// Stap 6: Resultaat verwerken. Er wordt een nieuwe array gemaakt waarin alle
-//         rijen uit de db komen. In dit geval is een rij een album.
 $reservations = [];
-//         mysqli_fetch_assoc haalt een rij uit de db en zet deze om naar
-//         een associatieve array. De namen van de index corresponderen met de
-//         kolomnamen (velden) van de tabel
-//         Als er geen rijen meer zijn in het resultaat geeft mysqli_fetch_assoc
-//         'false' terug en stopt de while loop.
+
 while ($row = mysqli_fetch_assoc($result)) {
-// elke rij (dit is een album) wordt aan de array 'albums' toegevoegd.
+
     $reservations[] = $row;
 }
 
-// Stap 7: Sluit de verbinding met de db. Deze is niet meer nodig. Al het
-//         resultaat zit in de variabele $albums
 mysqli_close($db);
 ?>
 

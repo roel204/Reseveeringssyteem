@@ -4,23 +4,23 @@
 require_once 'connection.php';
 $id = $_GET['id'];
 $query = "SELECT * FROM reservations WHERE id = '$id'";
-// Stap 4: Query uitvoeren op de database. Als dit goed gaat, geeft
-//         mysqli_query een mysqli_result terug. Let op, dit is een tabel.
-// Stap 5: Foutafhandeling. Als de query niet uitgevoerd kan worden treedt
-//         er een foutmelding op via "or die". Ook de query, met ingevulde
-//         variabelen, wordt op het scherm getoond. Deze kan je kopieren
-//         en plakken in PhpMyAdmin om te kijken waarom het fout gaat.
+
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 
-// Stap 6: Resultaat verwerken. Er wordt een nieuwe array gemaakt waarin alle
-//         rijen uit de db komen. In dit geval is een rij een album.
 $reservations = [];
-//         mysqli_fetch_assoc haalt een rij uit de db en zet deze om naar
+
 $row = mysqli_fetch_assoc($result);
 $reservations[] = $row;
-// Stap 7: Sluit de verbinding met de db. Deze is niet meer nodig. Al het
-//         resultaat zit in de variabele $albums
+
+if (isset($_POST['delete_button'])) {
+    // Delete a record from the table
+    $query = "DELETE FROM reservations WHERE id = '$id'";
+    mysqli_query($db, $query);
+    header('Location: index.php');
+    exit;
+}
+
 mysqli_close($db);
 ?>
 <!doctype html>
@@ -48,5 +48,12 @@ mysqli_close($db);
         <li>Tijd: <?= $row['time']; ?></li>
     </ul>
 </section>
+
+<form action="" method="post" class="delete">
+    <label for="delete_button">Delete</label>
+    <input type="checkbox" name="delete_button" id="delete_button" value="DELETE">
+    <input type="submit" value="DELETE">
+</form>
+
 </body>
 </html>
