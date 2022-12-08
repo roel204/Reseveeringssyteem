@@ -85,7 +85,7 @@ mysqli_close($db);
     <p class="error"><?= $reasonError ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
-        <textarea name="message" id="message" value="<?= $messageAnswer ?>" autocomplete="off"></textarea>
+        <textarea name="message" id="message" autocomplete="off"></textarea>
     </section>
     <section class="formfield">
         <label for="dateTime">Datum:</label>

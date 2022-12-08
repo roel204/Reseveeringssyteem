@@ -1,6 +1,5 @@
 <?php
 /** @var array $db */
-// Setup connection with database
 require_once 'connection.php';
 $id = $_GET['id'];
 $query = "SELECT * FROM reservations WHERE id = '$id'";
@@ -8,19 +7,14 @@ $query = "SELECT * FROM reservations WHERE id = '$id'";
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 
-$reservations = [];
-
 $row = mysqli_fetch_assoc($result);
-$reservations[] = $row;
 
 if (isset($_POST['delete_button'])) {
-    // Delete a record from the table
     $query = "DELETE FROM reservations WHERE id = '$id'";
     mysqli_query($db, $query);
     header('Location: index.php');
     exit;
 }
-
 mysqli_close($db);
 ?>
 <!doctype html>

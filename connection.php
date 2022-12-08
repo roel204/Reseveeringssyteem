@@ -1,6 +1,5 @@
 <?php
 
-// General settings
 $host = "localhost";
 $database = "roel_database";
 $user = "root";
