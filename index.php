@@ -47,10 +47,10 @@ mysqli_close($db);
         </tr>
         <?php foreach ($reservations as $klant) { ?>
             <tr>
-                <td><?= $klant['name']; ?></td>
-                <td><?= $klant['email']; ?></td>
+                <td><?= substr($klant['name'], 0, 50) . "..."; ?></td>
+                <td><?= substr($klant['email'], 0, 50) . "..."; ?></td>
                 <td><?= $klant['reason']; ?></td>
-                <td><?= $klant['message']; ?></td>
+                <td><?= substr($klant['message'], 0, 50) . "..."; ?></td>
                 <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>
                 <td><a href="detail.php?id=<?= $klant['id']; ?>">Details</a></td>
             </tr>
