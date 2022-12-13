@@ -73,19 +73,26 @@ mysqli_close($db);
     <section class="formfield">
         <label for="reason">Afspraak:</label>
         <select name="reason" id="reason">
-            <option value="" selected hidden>Maak een keuze.</option>
-            <option value="kijken">Komen kijken naar vogels.</option>
-            <option value="bloed">Bloed afnemen van mijn vogel.</option>
-            <option value="nagels">Nagels laten knippen.</option>
-            <option value="veren">Veren laten knippen.</option>
-            <option value="opvang">Opvang voor mijn vogel regelen.</option>
-            <option value="other">Anders. (Geef reden aan in bericht)</option>
+            <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
+            <option value="kijken"<?php if ($reasonAnswer == 'kijken') echo "selected"; ?>>Komen kijken naar vogels.
+            </option>
+            <option value="bloed"<?php if ($reasonAnswer == 'bloed') echo "selected"; ?>>Bloed afnemen van mijn vogel.
+            </option>
+            <option value="nagels"<?php if ($reasonAnswer == 'nagels') echo "selected"; ?>>Nagels laten knippen.
+            </option>
+            <option value="veren"<?php if ($reasonAnswer == 'veren') echo "selected"; ?>>Veren laten knippen.</option>
+            <option value="opvang"<?php if ($reasonAnswer == 'opvang') echo "selected"; ?>>Opvang voor mijn vogel
+                regelen.
+            </option>
+            <option value="other"<?php if ($reasonAnswer == 'other') echo "selected"; ?>>Anders. (Geef reden aan in
+                bericht)
+            </option>
         </select>
     </section>
     <p class="error"><?= $reasonError ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
-        <textarea name="message" id="message" autocomplete="off"></textarea>
+        <textarea name="message" id="message" autocomplete="off"><?= $messageAnswer ?></textarea>
     </section>
     <section class="formfield">
         <label for="dateTime">Datum:</label>
