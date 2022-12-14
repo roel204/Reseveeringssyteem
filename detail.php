@@ -7,16 +7,23 @@ if (!isset($_GET['id'])) {
 
 require_once 'connection.php';
 $id = $_GET['id'];
-$query = "SELECT * FROM reservations WHERE id = '$id'";
 
-$result = mysqli_query($db, $query)
-or die('Error ' . mysqli_error($db) . ' with query ' . $query);
+$query = "SELECT * FROM reasons";
+$result = mysqli_query($db, $query);
+
+$reasons = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $reasons[] = $row;
+}
+
+$query = "SELECT * FROM reservations WHERE id = '$id';";
+$result = mysqli_query($db, $query) or die ('Error: ' . $query);
 
 $row = mysqli_fetch_assoc($result);
 
 $nameAnswer = '';
 $emailAnswer = '';
-$reasonAnswer = '';
+$reasonAnswer = $row['reason_id'];
 $messageAnswer = '';
 $dateTimeAnswer = '';
 
@@ -75,16 +82,8 @@ mysqli_close($db);
 </head>
 <body>
 <a class="back" href="index.php">Terug naar afspraken</a>
-<section class="doosje">
-    <ul>
-        <li>Naam: <?= $row['name']; ?></li>
-        <li>Email: <?= $row['email']; ?></li>
-        <li>Afspraak: <?= $row['reason']; ?></li>
-        <li>Bericht: <?= $row['message']; ?></li>
-        <li>Datum/Tijd: <?= date('d-m-Y | H:i', strtotime($row['dateTime'])); ?></li>
-    </ul>
-</section>
 <form action="" method="post" class="create">
+    <h2>Edit Afspraak</h2>
     <section class="formfield">
         <label for="naam">Naam:</label>
         <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>"
@@ -100,21 +99,10 @@ mysqli_close($db);
     <section class="formfield">
         <label for="reason">Afspraak:</label>
         <select name="reason" id="reason">
-            <option value=""<?php if ($row['reason'] == '') echo "selected"; ?> hidden>Maak een keuze.</option>
-            <option value="kijken"<?php if ($row['reason'] == 'kijken') echo "selected"; ?>>Komen kijken naar vogels.
-            </option>
-            <option value="bloed"<?php if ($row['reason'] == 'bloed') echo "selected"; ?>>Bloed afnemen van mijn
-                vogel.
-            </option>
-            <option value="nagels"<?php if ($row['reason'] == 'nagels') echo "selected"; ?>>Nagels laten knippen.
-            </option>
-            <option value="veren"<?php if ($row['reason'] == 'veren') echo "selected"; ?>>Veren laten knippen.</option>
-            <option value="opvang"<?php if ($row['reason'] == 'opvang') echo "selected"; ?>>Opvang voor mijn vogel
-                regelen.
-            </option>
-            <option value="other"<?php if ($row['reason'] == 'other') echo "selected"; ?>>Anders. (Geef reden aan in
-                bericht)
-            </option>
+            <?php foreach ($reasons as $reason) { ?>
+                <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
+                <option value="<?= $reason['id']; ?>" <?php if ($row['reason_id'] == $reason['id']) echo "selected"; ?>><?= $reason['name'] ?></option>
+            <?php } ?>
         </select>
     </section>
     <p class="error"><?= $reasonError ?></p>
@@ -129,13 +117,14 @@ mysqli_close($db);
     <p class="error"><?= $dateTimeError ?></p>
     <input type="hidden" name="id" value="<?= $id ?>">
     <section class="formfield">
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit">EDIT</button>
     </section>
 </form>
 <form action="" method="post" class="delete">
-    <label for="delete_button">Delete</label>
+    <h2>Delete Afspraak</h2>
+    <label for="delete_button">Weet u zeker dat u de afspraak wilt verwijderen?</label>
     <input type="checkbox" name="delete_button" id="delete_button" value="DELETE">
-    <input type="submit" value="DELETE">
+    <button type="submit">DELETE</button>
 </form>
 
 </body>

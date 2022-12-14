@@ -2,7 +2,10 @@
 /** @var array $db */
 require_once 'connection.php';
 
-$query = "SELECT * FROM reservations";
+$query = "
+SELECT reservations.*, reasons.name AS reason_name 
+FROM reservations
+LEFT JOIN reasons ON reasons.id = reservations.reason_id";
 
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
@@ -10,7 +13,6 @@ or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 $reservations = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-
     $reservations[] = $row;
 }
 
@@ -47,10 +49,22 @@ mysqli_close($db);
         </tr>
         <?php foreach ($reservations as $klant) { ?>
             <tr>
-                <td><?= substr($klant['name'], 0, 50) . "..."; ?></td>
-                <td><?= substr($klant['email'], 0, 50) . "..."; ?></td>
-                <td><?= $klant['reason']; ?></td>
-                <td><?= substr($klant['message'], 0, 50) . "..."; ?></td>
+                <?php $text = $klant['name'];
+                if (strlen($text) > 35) {
+                    $text = substr($text, 0, 35) . "...";
+                }
+                echo "<td>$text</td>";
+                $text = $klant['email'];
+                if (strlen($text) > 35) {
+                    $text = substr($text, 0, 35) . "...";
+                }
+                echo "<td>$text</td>"; ?>
+                <td><?= $klant['reason_name']; ?></td>
+                <?php $text = $klant['message'];
+                if (strlen($text) > 50) {
+                    $text = substr($text, 0, 50) . "...";
+                }
+                echo "<td>$text</td>"; ?>
                 <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>
                 <td><a href="detail.php?id=<?= $klant['id']; ?>">Details</a></td>
             </tr>

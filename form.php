@@ -2,6 +2,14 @@
 /** @var array $db */
 require_once 'connection.php';
 
+$query = "SELECT * FROM reasons";
+$result = mysqli_query($db, $query);
+
+$reasons = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $reasons[] = $row;
+}
+
 $nameAnswer = '';
 $emailAnswer = '';
 $reasonAnswer = '';
@@ -16,7 +24,7 @@ $dateTimeError = '';
 if (isset($_POST['submit'])) {
     $nameAnswer = $_POST['name'];
     $emailAnswer = $_POST['email'];
-    $reasonAnswer = $_POST['reason'];
+    $reasonAnswer = $_POST['reason_id'];
     $messageAnswer = $_POST['message'];
     $dateTimeAnswer = date('Y-m-d H:i', strtotime($_POST['dateTime']));
 
@@ -26,14 +34,14 @@ if (isset($_POST['submit'])) {
     if ($_POST['email'] == '') {
         $emailError = 'Dit veld mag niet leeg zijn.';
     }
-    if ($_POST['reason'] == '') {
+    if ($_POST['reason_id'] == '') {
         $reasonError = 'Dit veld mag niet leeg zijn.';
     }
     if ($_POST['dateTime'] == '') {
         $dateTimeError = 'Dit veld mag niet leeg zijn.';
     }
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['dateTime'])) {
-        $query = "INSERT INTO reservations (`name`, `email`, `reason`, `message`, `dateTime`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateTimeAnswer')";
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['dateTime'])) {
+        $query = "INSERT INTO reservations (`name`, `email`, `reason_id`, `message`, `dateTime`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateTimeAnswer')";
         mysqli_query($db, $query);
         header('Location: index.php');
         exit;
@@ -71,22 +79,12 @@ mysqli_close($db);
     </section>
     <p class="error"><?= $emailError ?></p>
     <section class="formfield">
-        <label for="reason">Afspraak:</label>
-        <select name="reason" id="reason">
-            <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
-            <option value="kijken"<?php if ($reasonAnswer == 'kijken') echo "selected"; ?>>Komen kijken naar vogels.
-            </option>
-            <option value="bloed"<?php if ($reasonAnswer == 'bloed') echo "selected"; ?>>Bloed afnemen van mijn vogel.
-            </option>
-            <option value="nagels"<?php if ($reasonAnswer == 'nagels') echo "selected"; ?>>Nagels laten knippen.
-            </option>
-            <option value="veren"<?php if ($reasonAnswer == 'veren') echo "selected"; ?>>Veren laten knippen.</option>
-            <option value="opvang"<?php if ($reasonAnswer == 'opvang') echo "selected"; ?>>Opvang voor mijn vogel
-                regelen.
-            </option>
-            <option value="other"<?php if ($reasonAnswer == 'other') echo "selected"; ?>>Anders. (Geef reden aan in
-                bericht)
-            </option>
+        <label for="reason_id">Afspraak:</label>
+        <select name="reason_id" id="reason_id">
+            <?php foreach ($reasons as $reason) { ?>
+                <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
+                <option value="<?= $reason['id']; ?>" <?php if ($reasonAnswer == $reason['id']) echo "selected"; ?>><?= $reason['name'] ?></option>
+            <?php } ?>
         </select>
     </section>
     <p class="error"><?= $reasonError ?></p>

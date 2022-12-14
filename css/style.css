@@ -69,15 +69,6 @@ tr:nth-child(odd) {
     background-color: #FFFFFF;
 }
 
-ul {
-    text-align: left;
-    margin-top: 60px;
-}
-
-li {
-    margin: 5px;
-}
-
 
 /* Start Form*/
 
@@ -88,53 +79,48 @@ form {
     border: solid 2px black;
 }
 
-.create input,
-.create select,
-.create button,
-.create textarea {
+input,
+select,
+button,
+textarea {
     padding: 10px;
     margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 50%;
+    margin-right: 10%;
+    width: 90%;
     height: 50px;
     box-sizing: border-box;
     border: 2px solid black;
 }
 
-.create input[type=checkbox] {
+input[type=checkbox] {
     width: 50px;
 }
 
-.create label {
+label {
     display: flex;
     width: 20vw;
     padding-left: 10%;
     padding-top: 15px;
 }
 
-.create .formfield {
+.formfield {
     display: flex;
     flex-direction: row;
 }
 
-.create button {
+button {
     background-color: #8585ff;
     margin-left: 10%;
     width: 80%;
 }
 
-.create #reset {
-    margin-right: 10%;
-}
-
-.create button[type=submit], input[type=reset] {
+button[type=submit] {
     border: 4px solid black;
     background-color: #8585ff;
     font-size: 1em;
 }
 
-.create button[type=submit]:hover, input[type=reset]:hover {
+button[type=submit]:hover {
     background-color: #b1b1ff;
 }
 
@@ -142,9 +128,10 @@ form {
     height: 150px;
 }
 
-.create .error {
+.error {
     color: #ff0000;
     margin: 0px;
 }
+
 
 /* End Form */
