@@ -39,7 +39,7 @@ mysqli_close($db);
 <a class="back" href="logout.php">Uitloggen</a>
 <h1>Reseveerings-syssteem</h1>
 <section class="system">
-    <a class="new" href="create.php">Nieuwe afspraak maken.</a>
+    <a class="button" href="create.php">Nieuwe afspraak maken</a>
     <table>
         <tr>
             <th id="table_name">Naam</th>

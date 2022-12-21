@@ -73,7 +73,6 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
 <a class="back" href="index.php">Terug naar beginpagina</a>
-<h2>Log in</h2>
 <?php if ($login) {
     header('Location: home.php');
 } else { ?>
