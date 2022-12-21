@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['dateTime'])) {
         $query = "INSERT INTO reservations (`name`, `email`, `reason_id`, `message`, `dateTime`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateTimeAnswer')";
         mysqli_query($db, $query);
-        header('Location: index.php');
+        header('Location: home.php');
         exit;
     }
 }
@@ -76,7 +76,7 @@ mysqli_close($db);
 </head>
 
 <body>
-<a class="back" href="index.php">Terug naar afspraken</a>
+<a class="back" href="home.php">Terug naar afspraken</a>
 <form action="" method="post" class="create">
     <section class="formfield">
         <label for="naam">Naam:</label>

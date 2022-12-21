@@ -3,7 +3,7 @@
 
 // Stuurt user terug als de pagina word bezocht zonder id.
 if (!isset($_GET['id'])) {
-    header('Location: index.php');
+    header('Location: home.php');
 }
 
 // Connect met database.
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
     if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['dateTime'])) {
         $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`dateTime`='$dateTimeAnswer' WHERE id = '$_POST[id]'";
         mysqli_query($db, $query);
-        header('Location: index.php');
+        header('Location: home.php');
         exit;
     }
 }
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
 if (isset($_POST['delete_button'])) {
     $query = "DELETE FROM reservations WHERE id = '$id'";
     mysqli_query($db, $query);
-    header('Location: index.php');
+    header('Location: home.php');
     exit;
 }
 
@@ -98,7 +98,7 @@ mysqli_close($db);
     <title>Details</title>
 </head>
 <body>
-<a class="back" href="index.php">Terug naar afspraken</a>
+<a class="back" href="home.php">Terug naar afspraken</a>
 <form action="" method="post" class="create">
     <h2>Edit Afspraak</h2>
     <section class="formfield">

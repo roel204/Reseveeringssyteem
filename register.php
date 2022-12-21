@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     /** @var mysqli $db */
     require_once "connection.php";
 
@@ -10,18 +10,18 @@ if(isset($_POST['submit'])) {
 
     // Server-side validation
     $errors = [];
-    if($name == '') {
+    if ($name == '') {
         $errors['name'] = 'Please fill in your name.';
     }
-    if($email == '') {
+    if ($email == '') {
         $errors['email'] = 'Please fill in your email.';
     }
-    if($password == '') {
+    if ($password == '') {
         $errors['password'] = 'Please fill in your password.';
     }
 
     // If data valid
-    if(empty($errors)) {
+    if (empty($errors)) {
         // create a secure password, with the PHP function password_hash()
         $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -44,9 +44,13 @@ if(isset($_POST['submit'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+          href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
+          sizes="32x32">
     <title>Registreren</title>
 </head>
 <body>
+<a class="back" href="index.php">Terug naar beginpagina</a>
 <form action="" method="post" class="create">
     <h2>Registreer</h2>
     <section class="formfield">
@@ -71,6 +75,5 @@ if(isset($_POST['submit'])) {
         <button type="submit" name="submit">Submit</button>
     </section>
 </form>
-<a href="login.php">Log In</a>
 </body>
 </html>

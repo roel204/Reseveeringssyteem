@@ -41,8 +41,8 @@ if (isset($_POST['submit'])) {
 
                 // Store the user in the session
                 $_SESSION['loggedInUser'] = [
-                    'id'    => $user['id'],
-                    'name'  => $user['name'],
+                    'id' => $user['id'],
+                    'name' => $user['name'],
                     'email' => $user['email'],
                 ];
 
@@ -66,36 +66,39 @@ if (isset($_POST['submit'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+          href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
+          sizes="32x32">
     <title>Log in</title>
 </head>
 <body>
-        <h2>Log in</h2>
-        <?php if ($login) { ?>
-            <p>Je bent ingelogd!</p>
-            <p><a href="logout.php">Uitloggen</a> / <a href="index.php">Naar reseveering overzicht</a></p>
-        <?php } else { ?>
+<a class="back" href="index.php">Terug naar beginpagina</a>
+<h2>Log in</h2>
+<?php if ($login) { ?>
+    <p>Je bent ingelogd!</p>
+    <p><a href="logout.php">Uitloggen</a> / <a href="home.php">Naar reseveering overzicht</a></p>
+<?php } else { ?>
 
-            <form action="" method="post" class="create">
-                <h2>Log In</h2>
-                <section class="formfield">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $email ?? '' ?>"
-                           autocomplete="off">
-                </section>
-                <p class="error"><?= $errors['email'] ?? '' ?></p>
-                <section class="formfield">
-                    <label for="password">Wachtwoord::</label>
-                    <input type="password" name="password" id="password" placeholder="****"
-                           autocomplete="off">
-                </section>
-                <p class="error"><?= $errors['password'] ?? '' ?></p>
-                <p class="error"><?= $errors['loginFailed'] ?? '' ?></p>
-                <section class="formfield">
-                    <button type="submit" name="submit">Submit</button>
-                </section>
-            </form>
-        <?php } ?>
-        <a href="register.php">Registreer.</a>
+    <form action="" method="post" class="create">
+        <h2>Log In</h2>
+        <section class="formfield">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $email ?? '' ?>"
+                   autocomplete="off">
+        </section>
+        <p class="error"><?= $errors['email'] ?? '' ?></p>
+        <section class="formfield">
+            <label for="password">Wachtwoord::</label>
+            <input type="password" name="password" id="password" placeholder="****"
+                   autocomplete="off">
+        </section>
+        <p class="error"><?= $errors['password'] ?? '' ?></p>
+        <p class="error"><?= $errors['loginFailed'] ?? '' ?></p>
+        <section class="formfield">
+            <button type="submit" name="submit">Submit</button>
+        </section>
+    </form>
+<?php } ?>
 </body>
 </html>
 
