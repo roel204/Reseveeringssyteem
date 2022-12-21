@@ -37,7 +37,7 @@ mysqli_close($db);
 
 <body>
 <a class="back" href="logout.php">Uitloggen</a>
-<h1>Reseveerings-syssteem</h1>
+<h1>Reseveeringssyssteem</h1>
 <section class="system">
     <a class="button" href="create.php">Nieuwe afspraak maken</a>
     <table>

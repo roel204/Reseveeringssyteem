@@ -78,6 +78,7 @@ mysqli_close($db);
 <body>
 <a class="back" href="home.php">Terug naar afspraken</a>
 <form action="" method="post" class="create">
+    <h2>Nieuwe Afspraak</h2>
     <section class="formfield">
         <label for="naam">Naam:</label>
         <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $nameAnswer ?>"
@@ -110,7 +111,7 @@ mysqli_close($db);
     </section>
     <p class="error"><?= $dateTimeError ?></p>
     <section class="formfield">
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit">NIEUWE AFSPRAAK</button>
     </section>
 </form>
 </body>
