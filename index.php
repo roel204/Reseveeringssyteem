@@ -64,8 +64,8 @@ mysqli_close($db);
                 echo "<td>$text</td>"; ?>
                 <td><?= $klant['reason_name']; ?></td>
                 <?php $text = $klant['message'];
-                if (strlen($text) > 30) {
-                    $text = substr($text, 0, 30) . "...";
+                if (strlen($text) > 20) {
+                    $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>"; ?>
                 <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>

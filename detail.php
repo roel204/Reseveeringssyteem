@@ -139,8 +139,10 @@ mysqli_close($db);
 </form>
 <form action="" method="post" class="delete">
     <h2>Delete Afspraak</h2>
-    <label for="delete_button">Weet u zeker dat u de afspraak wilt verwijderen?</label>
-    <input type="checkbox" name="delete_button" id="delete_button" value="DELETE">
+    <section class="formfield">
+        <label for="delete_button">Weet u zeker dat u de afspraak wilt verwijderen?</label>
+        <input type="checkbox" name="delete_button" id="delete_button" value="DELETE">
+    </section>
     <button type="submit">DELETE</button>
 </form>
 
