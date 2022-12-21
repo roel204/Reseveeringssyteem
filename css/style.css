@@ -23,15 +23,6 @@ body {
     background-color: #b1b1ff;
 }
 
-th {
-    background-color: #6262ff;
-}
-
-th,
-td {
-    padding: 10px 10px;
-}
-
 .new {
     display: block;
     padding: 10px;
@@ -56,9 +47,22 @@ td {
 table {
     border-bottom: solid 2px black;
     border-top: solid 2px black;
-    width: 100vw;
     border-collapse: collapse;
     text-align: center;
+    width: 100vw;
+}
+
+th {
+    background-color: #6262ff;
+}
+
+th,
+td {
+    padding: 10px 10px;
+    border: solid 2px black;
+    border-collapse: collapse;
+    word-break: break-all;
+    white-space: nowrap;
 }
 
 tr:nth-child(even) {
@@ -69,6 +73,29 @@ tr:nth-child(odd) {
     background-color: #FFFFFF;
 }
 
+/*#table_name {*/
+/*    width: 20%;*/
+/*}*/
+
+/*#table_email {*/
+/*    width: 20%;*/
+/*}*/
+
+/*#table_reason {*/
+/*    width: 20%;*/
+/*}*/
+
+/*#table_message {*/
+/*    width: 22%;*/
+/*}*/
+
+/*#table_date_time {*/
+/*    width: 12%;*/
+/*}*/
+
+/*#table_edit {*/
+/*    min-width: 6%;*/
+/*}*/
 
 /* Start Form*/
 

@@ -1,37 +1,48 @@
 <?php
 /** @var array $db */
 
+// Stuurt user terug als de pagina word bezocht zonder id.
 if (!isset($_GET['id'])) {
     header('Location: index.php');
 }
 
+// Connect met database.
 require_once 'connection.php';
+
+// Maak variable aan en stop id er in.
 $id = $_GET['id'];
 
+// Doet query voor de dropdown reasons.
 $query = "SELECT * FROM reasons";
 $result = mysqli_query($db, $query);
 
+// Maak lege array aan en zet alle reasons en in.
 $reasons = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $reasons[] = $row;
 }
 
+// Query voor de rest van de data.
 $query = "SELECT * FROM reservations WHERE id = '$id';";
 $result = mysqli_query($db, $query) or die ('Error: ' . $query);
 
+// Stopt alle data in de row variable.
 $row = mysqli_fetch_assoc($result);
 
+// Maak lege variableen in op later data in te zetten.
 $nameAnswer = '';
 $emailAnswer = '';
 $reasonAnswer = $row['reason_id'];
 $messageAnswer = '';
 $dateTimeAnswer = '';
 
+// Maak lege variableen in op later errors in te zetten.
 $nameError = '';
 $emailError = '';
 $reasonError = '';
 $dateTimeError = '';
 
+// Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
     $nameAnswer = $_POST['name'];
     $emailAnswer = $_POST['email'];
@@ -39,6 +50,7 @@ if (isset($_POST['submit'])) {
     $messageAnswer = $_POST['message'];
     $dateTimeAnswer = date('Y-m-d H:i', strtotime($_POST['dateTime']));
 
+    // Als iets leeg is dan geef error.
     if ($_POST['name'] == '') {
         $nameError = 'Dit veld mag niet leeg zijn.';
     }
@@ -51,20 +63,25 @@ if (isset($_POST['submit'])) {
     if ($_POST['dateTime'] == '') {
         $dateTimeError = 'Dit veld mag niet leeg zijn.';
     }
+
+    // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
     if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['dateTime'])) {
-        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer',`reason`='$reasonAnswer',`message`='$messageAnswer',`dateTime`='$dateTimeAnswer' WHERE id = '$_POST[id]'";
+        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`dateTime`='$dateTimeAnswer' WHERE id = '$_POST[id]'";
         mysqli_query($db, $query);
         header('Location: index.php');
         exit;
     }
 }
 
+// Als er in een post 'delete_botton' zit (alleen in delete form post) dan delete die id regel uit de database en stuur door naar index pagina.
 if (isset($_POST['delete_button'])) {
     $query = "DELETE FROM reservations WHERE id = '$id'";
     mysqli_query($db, $query);
     header('Location: index.php');
     exit;
 }
+
+// Close connection met database.
 mysqli_close($db);
 ?>
 <!doctype html>

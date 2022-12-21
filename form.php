@@ -1,26 +1,33 @@
 <?php
 /** @var array $db */
+
+// Connect met database.
 require_once 'connection.php';
 
+// Query om de reasons op te halen uit de database.
 $query = "SELECT * FROM reasons";
 $result = mysqli_query($db, $query);
 
+// Maak lege array aan en stop alle reasons er in.
 $reasons = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $reasons[] = $row;
 }
 
+// Maak lege variableen in op later data in te zetten.
 $nameAnswer = '';
 $emailAnswer = '';
 $reasonAnswer = '';
 $messageAnswer = '';
 $dateTimeAnswer = '';
 
+// Maak lege variableen in op later errors in te zetten.
 $nameError = '';
 $emailError = '';
 $reasonError = '';
 $dateTimeError = '';
 
+// Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
     $nameAnswer = $_POST['name'];
     $emailAnswer = $_POST['email'];
@@ -28,6 +35,7 @@ if (isset($_POST['submit'])) {
     $messageAnswer = $_POST['message'];
     $dateTimeAnswer = date('Y-m-d H:i', strtotime($_POST['dateTime']));
 
+    // Als iets leeg is dan geef error.
     if ($_POST['name'] == '') {
         $nameError = 'Dit veld mag niet leeg zijn.';
     }
@@ -40,6 +48,8 @@ if (isset($_POST['submit'])) {
     if ($_POST['dateTime'] == '') {
         $dateTimeError = 'Dit veld mag niet leeg zijn.';
     }
+
+    // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
     if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['dateTime'])) {
         $query = "INSERT INTO reservations (`name`, `email`, `reason_id`, `message`, `dateTime`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateTimeAnswer')";
         mysqli_query($db, $query);
@@ -47,6 +57,8 @@ if (isset($_POST['submit'])) {
         exit;
     }
 }
+
+// Close connection met de database.
 mysqli_close($db);
 ?>
 <!DOCTYPE html>

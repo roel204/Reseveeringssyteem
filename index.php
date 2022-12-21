@@ -1,21 +1,23 @@
 <?php
 /** @var array $db */
+// Conect met database.
 require_once 'connection.php';
 
+// Query die naar database word gestuurd. Levert de hele reservations tabel + name regel uit reasons tabel. De reason_id word gekoppeld aan reasons_id.
 $query = "
 SELECT reservations.*, reasons.name AS reason_name 
 FROM reservations
 LEFT JOIN reasons ON reasons.id = reservations.reason_id";
-
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 
+// Maak lege array aan en zet alle resultaten er in.
 $reservations = [];
-
 while ($row = mysqli_fetch_assoc($result)) {
     $reservations[] = $row;
 }
 
+// Close connection met database.
 mysqli_close($db);
 ?>
 
@@ -40,33 +42,36 @@ mysqli_close($db);
     <a class="new" href="form.php">Nieuwe afspraak maken.</a>
     <table>
         <tr>
-            <th>Naam</th>
-            <th>Email</th>
-            <th>Afspraak</th>
-            <th>Bericht</th>
-            <th>Datum/Tijd</th>
-            <th>Details</th>
+            <th id="table_name">Naam</th>
+            <th id="table_email">Email</th>
+            <th id="table_reason">Afspraak</th>
+            <th id="table_message">Bericht</th>
+            <th id="table_date_time">Datum/Tijd</th>
+            <th id="table_edit">Edit</th>
         </tr>
+
         <?php foreach ($reservations as $klant) { ?>
             <tr>
                 <?php $text = $klant['name'];
-                if (strlen($text) > 35) {
-                    $text = substr($text, 0, 35) . "...";
+                if (strlen($text) > 20) {
+                    $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>";
                 $text = $klant['email'];
-                if (strlen($text) > 35) {
-                    $text = substr($text, 0, 35) . "...";
+                if (strlen($text) > 20) {
+                    $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>"; ?>
                 <td><?= $klant['reason_name']; ?></td>
                 <?php $text = $klant['message'];
-                if (strlen($text) > 50) {
-                    $text = substr($text, 0, 50) . "...";
+                if (strlen($text) > 30) {
+                    $text = substr($text, 0, 30) . "...";
                 }
                 echo "<td>$text</td>"; ?>
                 <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>
-                <td><a href="detail.php?id=<?= $klant['id']; ?>">Details</a></td>
+                <td><a href="detail.php?id=<?= $klant['id']; ?>">
+                        <img src="images/edit-icon.png" alt="Edit" width="25px">
+                    </a></td>
             </tr>
         <?php } ?>
     </table>
