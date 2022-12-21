@@ -1,9 +1,13 @@
 body {
-    background-color: #e0fcfc;
+    background-color: #DCF8FF;
     font-family: Arial;
     text-align: center;
     margin-left: 0;
     margin-right: 0;
+}
+
+.button {
+
 }
 
 .back {
