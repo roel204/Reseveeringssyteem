@@ -74,10 +74,9 @@ if (isset($_POST['submit'])) {
 <body>
 <a class="back" href="index.php">Terug naar beginpagina</a>
 <h2>Log in</h2>
-<?php if ($login) { ?>
-    <p>Je bent ingelogd!</p>
-    <p><a href="logout.php">Uitloggen</a> / <a href="home.php">Naar reseveering overzicht</a></p>
-<?php } else { ?>
+<?php if ($login) {
+    header('Location: home.php');
+} else { ?>
 
     <form action="" method="post" class="create">
         <h2>Log In</h2>
