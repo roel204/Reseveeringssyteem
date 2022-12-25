@@ -14,7 +14,7 @@
 </head>
 <body>
 <a class="back" href="https://www.parrotfarm.nl/contact/">Terug naar contact</a>
-<h1>Welkom bij het Parrotfarm reseveeringssysteem!</h1>
+<h1 class="welcome">Welkom bij het Parrotfarm reseveeringssysteem!</h1>
 <a class="button" href="register.php">Registreer</a>
 <br>
 <a class="button" href="login.php">Log In</a>

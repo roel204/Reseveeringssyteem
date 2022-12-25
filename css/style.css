@@ -18,6 +18,7 @@ body {
     padding: 10px 20px;
     margin: 10px auto;
     width: 12%;
+    font-family: Alegreya_Sans, Arial, sans-serif;
     transition: background-color 0.3s ease;
 }
 
@@ -41,6 +42,7 @@ body {
     position: fixed;
     top: 10px;
     left: 10px;
+    font-family: Alegreya_Sans, Arial, sans-serif;
     transition: background-color 0.3s ease;
 }
 
@@ -63,6 +65,8 @@ table {
 th {
     background-color: #1B2266;
     color: white;
+    font-family: Alegreya_Sans, Arial, sans-serif;
+    letter-spacing: 1px;
 }
 
 th,
@@ -101,10 +105,12 @@ textarea {
     height: 50px;
     box-sizing: border-box;
     border: 2px solid black;
+    border-radius: 5px;
 }
 
 input[type=checkbox] {
     width: 50px;
+    border-radius: 5px;
 }
 
 label {
@@ -112,6 +118,9 @@ label {
     width: 20vw;
     padding-left: 10%;
     padding-top: 15px;
+    font-family: Acme, Arial, sans-serif;
+    color: #1B2266;
+    font-size: 1.5rem;
 }
 
 .formfield {
@@ -131,6 +140,7 @@ button[type=submit] {
     padding: 10px 20px;
     margin: 10px auto;
     width: 80%;
+    font-family: Alegreya_Sans, Arial, sans-serif;
     transition: background-color 0.3s ease;
 }
 
@@ -143,10 +153,55 @@ button[type=submit]:hover {
     height: 150px;
 }
 
+/* End Form */
+
+@font-face {
+    font-family: Sigmar_One;
+    src: url(../font/SigmarOne-Regular.ttf);
+    font-weight: 400;
+}
+
+h1 {
+    font-family: Sigmar_One, Arial, sans-serif;
+    color: #1B2266;
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-family: Sigmar_One, Arial, sans-serif;
+    color: #1B2266;
+    font-size: 1.8rem;
+}
+
+@font-face {
+    font-family: Acme;
+    src: url(../font/Acme-Regular.ttf);
+    font-weight: 800;
+}
+
+h3 {
+    font-family: Acme, Arial, sans-serif;
+    color: #1B2266;
+    font-size: 1.5rem;
+}
+
+@font-face {
+    font-family: Alegreya_Sans;
+    src: url(../font/AlegreyaSans-ExtraBold.ttf);
+    font-weight: 400;
+}
+
+p {
+    font-family: Alegreya_Sans, Arial, sans-serif;
+    color: #1B2266;
+    font-size: 1rem;
+}
+
 .error {
     color: #ff0000;
     margin: 0px;
 }
 
-
-/* End Form */
+.welcome {
+    margin-top: 5%;
+}

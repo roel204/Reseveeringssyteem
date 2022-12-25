@@ -17,6 +17,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     $reservations[] = $row;
 }
 
+usort($reservations, function ($a, $b) {
+    return strtotime($a['dateTime']) - strtotime($b['dateTime']);
+});
+
 // Close connection met database.
 mysqli_close($db);
 ?>

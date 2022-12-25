@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
         <p class="error"><?= $errors['password'] ?? '' ?></p>
         <p class="error"><?= $errors['loginFailed'] ?? '' ?></p>
         <section class="formfield">
-            <button type="submit" name="submit">Submit</button>
+            <button type="submit" name="submit">LOG IN</button>
         </section>
     </form>
 <?php } ?>
