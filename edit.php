@@ -145,6 +145,8 @@ mysqli_close($db);
     </section>
     <button type="submit">DELETE</button>
 </form>
-
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
 </html>

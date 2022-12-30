@@ -205,3 +205,15 @@ p {
 .welcome {
     margin-top: 5%;
 }
+
+footer, footer p {
+    background-color: #1B2266;
+    color: #DCF8FF;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+

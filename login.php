@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
         </section>
         <p class="error"><?= $errors['email'] ?? '' ?></p>
         <section class="formfield">
-            <label for="password">Wachtwoord::</label>
+            <label for="password">Wachtwoord:</label>
             <input type="password" name="password" id="password" placeholder="****"
                    autocomplete="off">
         </section>
@@ -97,6 +97,9 @@ if (isset($_POST['submit'])) {
         </section>
     </form>
 <?php } ?>
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
 </html>
 

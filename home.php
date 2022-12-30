@@ -80,6 +80,8 @@ mysqli_close($db);
         <?php } ?>
     </table>
 </section>
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
-
 </html>

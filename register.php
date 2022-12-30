@@ -7,6 +7,7 @@ if (isset($_POST['submit'])) {
     $name = mysqli_escape_string($db, $_POST['name']);
     $email = mysqli_escape_string($db, $_POST['email']);
     $password = $_POST['password'];
+    $password_repeat = $_POST['password_repeat'];
 
     // Server-side validation
     $errors = [];
@@ -18,6 +19,11 @@ if (isset($_POST['submit'])) {
     }
     if ($password == '') {
         $errors['password'] = 'Please fill in your password.';
+    }
+    if ($password === $password_repeat) {
+        // proceed with creating the account
+    } else {
+        $errors['password_repeat'] = 'Passwords do not match.';
     }
 
     // If data valid
@@ -67,13 +73,22 @@ if (isset($_POST['submit'])) {
     <p class="error"><?= $errors['email'] ?? '' ?></p>
     <section class="formfield">
         <label for="password">Wachtwoord:</label>
-        <input type="password" name="password" id="password" placeholder="****"
+        <input type="password" name="password" id="password" placeholder="Wachtwoord"
+               autocomplete="off">
+    </section>
+    <section class="formfield">
+        <label for="password_repeat">Wachtwoord:</label>
+        <input type="password" name="password_repeat" id="password_repeat" placeholder="Herhaal Wachtwoord"
                autocomplete="off">
     </section>
     <p class="error"><?= $errors['password'] ?? '' ?></p>
+    <p class="error"><?= $errors['password_repeat'] ?? '' ?></p>
     <section class="formfield">
         <button type="submit" name="submit">REGISTREER</button>
     </section>
 </form>
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
 </html>

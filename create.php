@@ -114,5 +114,8 @@ mysqli_close($db);
         <button type="submit" name="submit">NIEUWE AFSPRAAK</button>
     </section>
 </form>
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
 </html>

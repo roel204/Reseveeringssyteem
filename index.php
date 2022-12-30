@@ -18,5 +18,8 @@
 <a class="button" href="register.php">Registreer</a>
 <br>
 <a class="button" href="login.php">Log In</a>
+<footer>
+    <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
+</footer>
 </body>
 </html>
