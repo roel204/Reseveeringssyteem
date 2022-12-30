@@ -1,6 +1,6 @@
 body {
     background-color: #DCF8FF;
-    font-family: Arial;
+    font-family: Arial, serif;
     text-align: center;
     margin-left: 0;
     margin-right: 0;
@@ -199,7 +199,7 @@ p {
 
 .error {
     color: #ff0000;
-    margin: 0px;
+    margin: 0;
 }
 
 .welcome {

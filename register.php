@@ -6,8 +6,8 @@ if (isset($_POST['submit'])) {
     // Get form data
     $name = mysqli_escape_string($db, $_POST['name']);
     $email = mysqli_escape_string($db, $_POST['email']);
-    $password = $_POST['password'];
-    $password_repeat = $_POST['password_repeat'];
+    $password = mysqli_escape_string($db, $_POST['password']);
+    $password_repeat = mysqli_escape_string($db, $_POST['password_repeat']);
 
     // Server-side validation
     $errors = [];
