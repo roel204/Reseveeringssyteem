@@ -18,10 +18,10 @@ if (isset($_POST['submit'])) {
     // Server-side validation
     $errors = [];
     if ($email == '') {
-        $errors['email'] = 'Please fill in your email.';
+        $errors['email'] = 'Vul een email in.';
     }
     if ($password == '') {
-        $errors['password'] = 'Please fill in your password.';
+        $errors['password'] = 'Vul een wachtwoord in.';
     }
 
     // If data valid
@@ -49,11 +49,11 @@ if (isset($_POST['submit'])) {
                 // Redirect to secure page
             } else {
                 //error incorrect log in
-                $errors['loginFailed'] = 'The provided credentials do not match.';
+                $errors['loginFailed'] = 'Er ging iets mis, probeer het nogmaals.';
             }
         } else {
             //error incorrect log in
-            $errors['loginFailed'] = 'The provided credentials do not match.';
+            $errors['loginFailed'] = 'Er ging iet mis, probeer het nogmaals.';
         }
     }
 }

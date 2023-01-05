@@ -12,18 +12,18 @@ if (isset($_POST['submit'])) {
     // Server-side validation
     $errors = [];
     if ($name == '') {
-        $errors['name'] = 'Please fill in your name.';
+        $errors['name'] = 'Vul een naam in.';
     }
     if ($email == '') {
-        $errors['email'] = 'Please fill in your email.';
+        $errors['email'] = 'Vul een email in.';
     }
     if ($password == '') {
-        $errors['password'] = 'Please fill in your password.';
+        $errors['password'] = 'Vul een wachtwoord in.';
     }
     if ($password === $password_repeat) {
         // proceed with creating the account
     } else {
-        $errors['password_repeat'] = 'Passwords do not match.';
+        $errors['password_repeat'] = 'Wachtwoorden zijn niet gelijk.';
     }
 
     // If data valid
