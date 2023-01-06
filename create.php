@@ -76,18 +76,9 @@ mysqli_close($db);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Include the jQuery UI CSS styles -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
     <link rel="icon"
           href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
           sizes="32x32">
-    <!-- Include the jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Include the jQuery UI library -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
     <title>Form</title>
 </head>
 
@@ -124,7 +115,6 @@ mysqli_close($db);
     <section class="formfield">
         <label for="date">Datum:<p class="error">*</p></label>
         <input type="date" name="date" id="date" value="<?= $dateAnswer ?>">
-
         <label for="time">Tijd:<p class="error">*</p></label>
         <select name="time" id="time">
             <option value=""<?php if ($timeAnswer == '') echo "selected"; ?> hidden>Kies een tijd.</option>
