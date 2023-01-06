@@ -50,7 +50,7 @@ mysqli_close($db);
             <th id="table_email">Email</th>
             <th id="table_reason">Afspraak</th>
             <th id="table_message">Bericht</th>
-            <th id="table_date_time">Datum/Tijd</th>
+            <th id="table_date">Datum/Tijd</th>
             <th id="table_edit">Edit</th>
         </tr>
 
@@ -72,7 +72,7 @@ mysqli_close($db);
                     $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>"; ?>
-                <td><?= date('d-m-Y | H:i', strtotime($klant['dateTime'])); ?></td>
+                <td><?= $klant['date'] ?> | <?= $klant['time'] ?>:00</td>
                 <td><a href="edit.php?id=<?= $klant['id']; ?>">
                         <img src="images/edit-icon.png" alt="Edit" width="25px">
                     </a></td>

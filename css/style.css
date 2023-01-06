@@ -123,6 +123,15 @@ label {
     font-size: 1.5rem;
 }
 
+#date {
+    margin-right: 0;
+    width: 20%;
+}
+
+#time {
+    width: 25%;
+}
+
 .formfield {
     display: flex;
     flex-direction: row;

@@ -34,13 +34,15 @@ $nameAnswer = '';
 $emailAnswer = '';
 $reasonAnswer = $row['reason_id'];
 $messageAnswer = '';
-$dateTimeAnswer = '';
+$dateAnswer = '';
+$timeAnswer = '';
 
 // Maak lege variableen in op later errors in te zetten.
 $nameError = '';
 $emailError = '';
 $reasonError = '';
-$dateTimeError = '';
+$dateError = '';
+$timeError = '';
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
@@ -48,7 +50,8 @@ if (isset($_POST['submit'])) {
     $emailAnswer = $_POST['email'];
     $reasonAnswer = $_POST['reason'];
     $messageAnswer = $_POST['message'];
-    $dateTimeAnswer = date('Y-m-d H:i', strtotime($_POST['dateTime']));
+    $dateAnswer = $_POST['date'];
+    $timeAnswer = $_POST['time'];
 
     // Als iets leeg is dan geef error.
     if ($_POST['name'] == '') {
@@ -60,13 +63,16 @@ if (isset($_POST['submit'])) {
     if ($_POST['reason'] == '') {
         $reasonError = 'Dit veld mag niet leeg zijn.';
     }
-    if ($_POST['dateTime'] == '') {
-        $dateTimeError = 'Dit veld mag niet leeg zijn.';
+    if ($_POST['date'] == '') {
+        $dateError = 'Dit veld mag niet leeg zijn.';
+    }
+    if ($_POST['time'] == '') {
+        $timeError = 'Dit veld mag niet leeg zijn.';
     }
 
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['dateTime'])) {
-        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`dateTime`='$dateTimeAnswer' WHERE id = '$_POST[id]'";
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time'])) {
+        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`date`='$dateAnswer',`time`='$timeAnswer'WHERE id = '$_POST[id]'";
         mysqli_query($db, $query);
         header('Location: home.php');
         exit;
@@ -102,19 +108,19 @@ mysqli_close($db);
 <form action="" method="post" class="create">
     <h2>Edit Afspraak</h2>
     <section class="formfield">
-        <label for="naam">Naam:</label>
+        <label for="naam">Naam:<p class="error">*</p></label>
         <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>"
                autocomplete="off">
     </section>
     <p class="error"><?= $nameError ?></p>
     <section class="formfield">
-        <label for="email">Email:</label>
+        <label for="email">Email:<p class="error">*</p></label>
         <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $row['email']; ?>"
                autocomplete="off">
     </section>
     <p class="error"><?= $emailError ?></p>
     <section class="formfield">
-        <label for="reason">Afspraak:</label>
+        <label for="reason">Afspraak:<p class="error">*</p></label>
         <select name="reason" id="reason">
             <?php foreach ($reasons as $reason) { ?>
                 <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
@@ -128,10 +134,22 @@ mysqli_close($db);
         <textarea name="message" id="message" autocomplete="off"><?= $row['message']; ?></textarea>
     </section>
     <section class="formfield">
-        <label for="dateTime">Datum:</label>
-        <input type="datetime-local" name="dateTime" id="dateTime" value="<?= $row['dateTime']; ?>">
+        <label for="date">Datum:<p class="error">*</p></label>
+        <input type="date" name="date" id="date" value="<?= $row['date']; ?>">
+        <label for="time">Tijd:<p class="error">*</p></label>
+        <select name="time" id="time">
+            <option value=""<?php if ($row['time'] == '') echo "selected"; ?> hidden>Kies een tijd.</option>
+            <option value="10"<?php if ($row['time'] == 10) echo "selected"; ?>>10:00 uur</option>
+            <option value="11"<?php if ($row['time'] == 11) echo "selected"; ?>>11:00 uur</option>
+            <option value="12"<?php if ($row['time'] == 12) echo "selected"; ?>>12:00 uur</option>
+            <option value="13"<?php if ($row['time'] == 13) echo "selected"; ?>>13:00 uur</option>
+            <option value="14"<?php if ($row['time'] == 14) echo "selected"; ?>>14:00 uur</option>
+            <option value="15"<?php if ($row['time'] == 15) echo "selected"; ?>>15:00 uur</option>
+            <option value="16"<?php if ($row['time'] == 16) echo "selected"; ?>>16:00 uur</option>
+        </select>
     </section>
-    <p class="error"><?= $dateTimeError ?></p>
+    <p class="error"><?= $dateError ?></p>
+    <p class="error"><?= $timeError ?></p>
     <input type="hidden" name="id" value="<?= $id ?>">
     <section class="formfield">
         <button type="submit" name="submit">EDIT</button>
