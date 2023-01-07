@@ -18,8 +18,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 usort($reservations, function ($a, $b) {
-    return strtotime($a['dateTime']) - strtotime($b['dateTime']);
+    $a_timestamp = strtotime($a['date'] . ' ' . $a['time'] . ':00:00');
+    $b_timestamp = strtotime($b['date'] . ' ' . $b['time'] . ':00:00');
+    return $a_timestamp - $b_timestamp;
 });
+
+
+if (empty($reservations)) {
+    $empty = 'Er zijn nog geen afspraken gemaakt.';
+} else {
+    $empty = '';
+}
 
 // Close connection met database.
 mysqli_close($db);
@@ -48,6 +57,7 @@ mysqli_close($db);
         <tr>
             <th id="table_name">Naam</th>
             <th id="table_email">Email</th>
+            <th id="table_phone">Telefoon</th>
             <th id="table_reason">Afspraak</th>
             <th id="table_message">Bericht</th>
             <th id="table_date">Datum/Tijd</th>
@@ -66,19 +76,23 @@ mysqli_close($db);
                     $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>"; ?>
+                <td><?= $klant['phone'] ?></td>
                 <td><?= $klant['reason_name']; ?></td>
                 <?php $text = $klant['message'];
                 if (strlen($text) > 20) {
                     $text = substr($text, 0, 20) . "...";
                 }
                 echo "<td>$text</td>"; ?>
-                <td><?= $klant['date'] ?> | <?= $klant['time'] ?>:00</td>
+                <td><?= date('d M Y', strtotime($klant['date'])) ?>
+                    | <?= $klant['time'] ?>:00
+                </td>
                 <td><a href="edit.php?id=<?= $klant['id']; ?>">
                         <img src="images/edit-icon.png" alt="Edit" width="25px">
                     </a></td>
             </tr>
         <?php } ?>
     </table>
+    <p><?= $empty ?></p>
 </section>
 <footer>
     <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>

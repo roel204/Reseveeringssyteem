@@ -17,6 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 // Maak lege variableen in op later data in te zetten.
 $nameAnswer = '';
 $emailAnswer = '';
+$phoneAnswer = '';
 $reasonAnswer = '';
 $messageAnswer = '';
 $dateAnswer = '';
@@ -26,7 +27,6 @@ $timeAnswer = '';
 $nameError = '';
 $emailError = '';
 $reasonError = '';
-$dateTimeError = '';
 $dateError = '';
 $timeError = '';
 
@@ -34,6 +34,7 @@ $timeError = '';
 if (isset($_POST['submit'])) {
     $nameAnswer = $_POST['name'];
     $emailAnswer = $_POST['email'];
+    $phoneAnswer = $_POST['phone'];
     $reasonAnswer = $_POST['reason_id'];
     $messageAnswer = $_POST['message'];
     $dateAnswer = $_POST['date'];
@@ -58,7 +59,7 @@ if (isset($_POST['submit'])) {
 
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
     if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time'])) {
-        $query = "INSERT INTO reservations (`name`, `email`, `reason_id`, `message`, `date`, `time`) VALUES ('$nameAnswer', '$emailAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
+        $query = "INSERT INTO reservations (`name`, `email`, `phone`, `reason_id`, `message`, `date`, `time`) VALUES ('$nameAnswer', '$emailAnswer', '$phoneAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
         mysqli_query($db, $query);
         header('Location: home.php');
         exit;
@@ -98,6 +99,18 @@ mysqli_close($db);
                autocomplete="off">
     </section>
     <p class="error"><?= $emailError ?></p>
+    <section class="formfield">
+        <label for="phone">Telefoon:</label>
+        <input type="tel" name="phone" id="phone" pattern="\d{2} \d{8}" placeholder="06 12345678"
+               value="<?= $phoneAnswer ?>" autocomplete="off">
+        <script>
+            document.getElementById('phone').addEventListener('input', function (e) {
+                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,8})/);
+                e.target.value = !x[2] ? x[1] : x[1] + ' ' + x[2] + (x[3] ? '-' + x[3] : '');
+
+            });
+        </script>
+    </section>
     <section class="formfield">
         <label for="reason_id">Afspraak:<p class="error">*</p></label>
         <select name="reason_id" id="reason_id">
