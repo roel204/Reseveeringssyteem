@@ -233,3 +233,25 @@ footer, footer p {
     margin-right: auto;
 }
 
+.formfield {
+    position: relative;
+}
+
+.eye-btn, .eye-btn-2 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 30px;
+}
+
+.eye-btn i, .eye-btn-2 i {
+    font-size: 1.2em;
+    color: #999;
+}

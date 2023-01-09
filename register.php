@@ -50,6 +50,7 @@ if (isset($_POST['submit'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon"
           href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
           sizes="32x32">
@@ -73,13 +74,46 @@ if (isset($_POST['submit'])) {
     <p class="error"><?= $errors['email'] ?? '' ?></p>
     <section class="formfield">
         <label for="password">Wachtwoord:</label>
-        <input type="password" name="password" id="password" placeholder="Wachtwoord"
-               autocomplete="off">
+        <input type="password" name="password" id="password" placeholder="Wachtwoord" autocomplete="off">
+        <button class="eye-btn" type="button" onclick="togglePasswordVisibility()"><i class="fa fa-eye"></i>
+        </button>
+        <script>
+            function togglePasswordVisibility() {
+                let passwordInput = document.getElementById("password");
+                let eyeBtn = document.querySelector(".eye-btn i");
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeBtn.classList.add("fa-eye-slash");
+                    eyeBtn.classList.remove("fa-eye");
+                } else {
+                    passwordInput.type = "password";
+                    eyeBtn.classList.add("fa-eye");
+                    eyeBtn.classList.remove("fa-eye-slash");
+                }
+            }
+        </script>
     </section>
     <section class="formfield">
         <label for="password_repeat">Wachtwoord:</label>
         <input type="password" name="password_repeat" id="password_repeat" placeholder="Herhaal Wachtwoord"
                autocomplete="off">
+        <button class="eye-btn-2" type="button" onclick="togglePasswordVisibility2()"><i class="fa fa-eye"></i>
+        </button>
+        <script>
+            function togglePasswordVisibility2() {
+                let passwordInput2 = document.getElementById("password_repeat");
+                let eyeBtn2 = document.querySelector(".eye-btn-2 i");
+                if (passwordInput2.type === "password") {
+                    passwordInput2.type = "text";
+                    eyeBtn2.classList.add("fa-eye-slash");
+                    eyeBtn2.classList.remove("fa-eye");
+                } else {
+                    passwordInput2.type = "password";
+                    eyeBtn2.classList.add("fa-eye");
+                    eyeBtn2.classList.remove("fa-eye-slash");
+                }
+            }
+        </script>
     </section>
     <p class="error"><?= $errors['password'] ?? '' ?></p>
     <p class="error"><?= $errors['password_repeat'] ?? '' ?></p>

@@ -70,6 +70,7 @@ if (isset($_POST['submit'])) {
     <link rel="icon"
           href="https://www.parrotfarm.nl/wp-content/uploads/2021/04/cropped-D31F63E9-3F1D-443D-841A-1ABC6EE3B6A3-32x32.png"
           sizes="32x32">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Log in</title>
 </head>
 <body>
@@ -88,8 +89,24 @@ if (isset($_POST['submit'])) {
         <p class="error"><?= $errors['email'] ?? '' ?></p>
         <section class="formfield">
             <label for="password">Wachtwoord:</label>
-            <input type="password" name="password" id="password" placeholder="****"
-                   autocomplete="off">
+            <input type="password" name="password" id="password" placeholder="Wachtwoord" autocomplete="off">
+            <button class="eye-btn" type="button" onclick="togglePasswordVisibility()"><i class="fa fa-eye"></i>
+            </button>
+            <script>
+                function togglePasswordVisibility() {
+                    let passwordInput = document.getElementById("password");
+                    let eyeBtn = document.querySelector(".eye-btn i");
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                        eyeBtn.classList.add("fa-eye-slash");
+                        eyeBtn.classList.remove("fa-eye");
+                    } else {
+                        passwordInput.type = "password";
+                        eyeBtn.classList.add("fa-eye");
+                        eyeBtn.classList.remove("fa-eye-slash");
+                    }
+                }
+            </script>
         </section>
         <p class="error"><?= $errors['password'] ?? '' ?></p>
         <p class="error"><?= $errors['loginFailed'] ?? '' ?></p>

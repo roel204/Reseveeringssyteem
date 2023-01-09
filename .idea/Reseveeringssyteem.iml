@@ -7,5 +7,6 @@
     <orderEntry type="library" name="jquery-ui" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="flatpickr" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
   </component>
 </module>
