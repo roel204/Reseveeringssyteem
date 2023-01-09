@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 /** @var array $db */
 
 // Connect met database.
@@ -14,21 +17,17 @@ while ($row = mysqli_fetch_assoc($result)) {
     $reasons[] = $row;
 }
 
-// Maak lege variableen in op later data in te zetten.
-$nameAnswer = '';
-$emailAnswer = '';
-$phoneAnswer = '';
-$reasonAnswer = '';
-$messageAnswer = '';
-$dateAnswer = '';
-$timeAnswer = '';
-
 // Maak lege variableen in op later errors in te zetten.
 $nameError = '';
 $emailError = '';
 $reasonError = '';
 $dateError = '';
 $timeError = '';
+$date = '';
+
+$reasonAnswer = '';
+$timeAnswer = '';
+$user_id = $_SESSION['loggedInUser']['id'];
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
@@ -57,9 +56,19 @@ if (isset($_POST['submit'])) {
         $timeError = 'Dit veld mag niet leeg zijn.';
     }
 
+    $selectedDate = $dateAnswer;
+
+    $dayOfWeek = date("l", strtotime($selectedDate));
+
+    if ($dayOfWeek == "Monday" || $dayOfWeek == "Tuesday" || $dayOfWeek == "Wednesday") {
+        $date = 'valid';
+    } else {
+        $dateError = 'Selecteer een datum die op Maandag, Dinsdag of Woensdag valt.';
+    }
+
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time'])) {
-        $query = "INSERT INTO reservations (`name`, `email`, `phone`, `reason_id`, `message`, `date`, `time`) VALUES ('$nameAnswer', '$emailAnswer', '$phoneAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time']) && $date == 'valid') {
+        $query = "INSERT INTO reservations (`user_id`, `name`, `email`, `phone`, `reason_id`, `message`, `date`, `time`) VALUES ('$user_id', '$nameAnswer', '$emailAnswer', '$phoneAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
         mysqli_query($db, $query);
         header('Location: home.php');
         exit;
@@ -88,21 +97,23 @@ mysqli_close($db);
 <form action="" method="post" class="create">
     <h2>Nieuwe Afspraak</h2>
     <section class="formfield">
-        <label for="naam">Naam:<p class="error">*</p></label>
-        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $nameAnswer ?>"
+        <!--        <label for="naam">Naam:<p class="error">*</p></label>-->
+        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam"
+               value="<?= $nameAnswer ?? $_SESSION['loggedInUser']['name'] ?>" hidden
                autocomplete="off">
     </section>
     <p class="error"><?= $nameError ?></p>
     <section class="formfield">
-        <label for="email">Email:<p class="error">*</p></label>
-        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $emailAnswer ?>"
+        <!--        <label for="email">Email:<p class="error">*</p></label>-->
+        <input type="email" name="email" id="email" placeholder="name@mail.com"
+               value="<?= $emailAnswer ?? $_SESSION['loggedInUser']['email'] ?>" hidden
                autocomplete="off">
     </section>
     <p class="error"><?= $emailError ?></p>
     <section class="formfield">
         <label for="phone">Telefoon:</label>
         <input type="tel" name="phone" id="phone" pattern="\d{2} \d{8}" placeholder="06 12345678"
-               value="<?= $phoneAnswer ?>" autocomplete="off">
+               value="<?= $phoneAnswer ?? '' ?>" autocomplete="off">
         <script>
             document.getElementById('phone').addEventListener('input', function (e) {
                 let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,8})/);
@@ -123,11 +134,11 @@ mysqli_close($db);
     <p class="error"><?= $reasonError ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
-        <textarea name="message" id="message" autocomplete="off"><?= $messageAnswer ?></textarea>
+        <textarea name="message" id="message" autocomplete="off"><?= $messageAnswer ?? '' ?></textarea>
     </section>
     <section class="formfield">
         <label for="date">Datum:<p class="error">*</p></label>
-        <input type="date" name="date" id="date" value="<?= $dateAnswer ?>">
+        <input type="date" name="date" id="date" value="<?= $dateAnswer ?? '' ?>">
         <label for="time">Tijd:<p class="error">*</p></label>
         <select name="time" id="time">
             <option value=""<?php if ($timeAnswer == '') echo "selected"; ?> hidden>Kies een tijd.</option>

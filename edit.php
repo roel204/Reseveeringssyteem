@@ -44,6 +44,7 @@ $emailError = '';
 $reasonError = '';
 $dateError = '';
 $timeError = '';
+$date = '';
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
@@ -72,9 +73,19 @@ if (isset($_POST['submit'])) {
         $timeError = 'Dit veld mag niet leeg zijn.';
     }
 
+    $selectedDate = $dateAnswer;
+
+    $dayOfWeek = date("l", strtotime($selectedDate));
+
+    if ($dayOfWeek == "Monday" || $dayOfWeek == "Tuesday" || $dayOfWeek == "Wednesday") {
+        $date = 'valid';
+    } else {
+        $dateError = 'Selecteer een datum die op Maandag, Dinsdag of Woensdag valt.';
+    }
+
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time'])) {
-        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer', `phone`='$phoneAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`date`='$dateAnswer',`time`='$timeAnswer'WHERE id = '$_POST[id]'";
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time']) && $date == 'valid') {
+        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer', `phone`='$phoneAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`date`='$dateAnswer',`time`='$timeAnswer'WHERE id = '$id'";
         mysqli_query($db, $query);
         header('Location: home.php');
         exit;
@@ -110,14 +121,14 @@ mysqli_close($db);
 <form action="" method="post" class="create">
     <h2>Edit Afspraak</h2>
     <section class="formfield">
-        <label for="naam">Naam:<p class="error">*</p></label>
-        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>"
+        <!--        <label for="naam">Naam:<p class="error">*</p></label>-->
+        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>" hidden
                autocomplete="off">
     </section>
     <p class="error"><?= $nameError ?></p>
     <section class="formfield">
-        <label for="email">Email:<p class="error">*</p></label>
-        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $row['email']; ?>"
+        <!--        <label for="email">Email:<p class="error">*</p></label>-->
+        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $row['email']; ?>" hidden
                autocomplete="off">
     </section>
     <p class="error"><?= $emailError ?></p>
@@ -164,7 +175,6 @@ mysqli_close($db);
     </section>
     <p class="error"><?= $dateError ?></p>
     <p class="error"><?= $timeError ?></p>
-    <input type="hidden" name="id" value="<?= $id ?>">
     <section class="formfield">
         <button type="submit" name="submit">EDIT</button>
     </section>

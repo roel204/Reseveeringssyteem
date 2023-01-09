@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 /** @var array $db */
 // Conect met database.
 require_once 'connection.php';
@@ -23,12 +26,7 @@ usort($reservations, function ($a, $b) {
     return $a_timestamp - $b_timestamp;
 });
 
-
-if (empty($reservations)) {
-    $empty = 'Er zijn nog geen afspraken gemaakt.';
-} else {
-    $empty = '';
-}
+$empty = '';
 
 // Close connection met database.
 mysqli_close($db);
@@ -51,46 +49,54 @@ mysqli_close($db);
 <body>
 <a class="back" href="logout.php">Uitloggen</a>
 <h1>Reseveeringssyssteem</h1>
+<h3><?= "Welkom, " . $_SESSION['loggedInUser']['name'] . "!"; ?></h3>
 <section class="system">
     <a class="button" href="create.php">Nieuwe afspraak maken</a>
     <table>
-        <tr>
-            <th id="table_name">Naam</th>
-            <th id="table_email">Email</th>
-            <th id="table_phone">Telefoon</th>
-            <th id="table_reason">Afspraak</th>
-            <th id="table_message">Bericht</th>
-            <th id="table_date">Datum/Tijd</th>
-            <th id="table_edit">Edit</th>
-        </tr>
-
-        <?php foreach ($reservations as $klant) { ?>
-            <tr>
-                <?php $text = $klant['name'];
-                if (strlen($text) > 20) {
-                    $text = substr($text, 0, 20) . "...";
-                }
-                echo "<td>$text</td>";
-                $text = $klant['email'];
-                if (strlen($text) > 20) {
-                    $text = substr($text, 0, 20) . "...";
-                }
-                echo "<td>$text</td>"; ?>
-                <td><?= $klant['phone'] ?></td>
-                <td><?= $klant['reason_name']; ?></td>
-                <?php $text = $klant['message'];
-                if (strlen($text) > 20) {
-                    $text = substr($text, 0, 20) . "...";
-                }
-                echo "<td>$text</td>"; ?>
-                <td><?= date('d M Y', strtotime($klant['date'])) ?>
-                    | <?= $klant['time'] ?>:00
-                </td>
-                <td><a href="edit.php?id=<?= $klant['id']; ?>">
-                        <img src="images/edit-icon.png" alt="Edit" width="25px">
-                    </a></td>
-            </tr>
-        <?php } ?>
+        <?php foreach ($reservations as $klant) {
+            // Check if the user's ID matches the user ID associated with the data being displayed
+            if ($klant['user_id'] == $_SESSION['loggedInUser']['id'] || $_SESSION['loggedInUser']['admin'] == 1) {
+                // If the IDs match, show the data
+                ?>
+                <tr>
+                    <th id="table_name">Naam</th>
+                    <th id="table_email">Email</th>
+                    <th id="table_phone">Telefoon</th>
+                    <th id="table_reason">Afspraak</th>
+                    <th id="table_message">Bericht</th>
+                    <th id="table_date">Datum/Tijd</th>
+                    <th id="table_edit">Edit</th>
+                </tr>
+                <tr>
+                    <?php $text = $klant['name'];
+                    if (strlen($text) > 20) {
+                        $text = substr($text, 0, 20) . "...";
+                    }
+                    echo "<td>$text</td>";
+                    $text = $klant['email'];
+                    if (strlen($text) > 20) {
+                        $text = substr($text, 0, 20) . "...";
+                    }
+                    echo "<td>$text</td>"; ?>
+                    <td><?= $klant['phone'] ?></td>
+                    <td><?= $klant['reason_name']; ?></td>
+                    <?php $text = $klant['message'];
+                    if (strlen($text) > 20) {
+                        $text = substr($text, 0, 20) . "...";
+                    }
+                    echo "<td>$text</td>"; ?>
+                    <td><?= date('d M Y', strtotime($klant['date'])) ?>
+                        | <?= $klant['time'] ?>:00
+                    </td>
+                    <td><a href="edit.php?id=<?= $klant['id']; ?>">
+                            <img src="images/edit-icon.png" alt="Edit" width="25px">
+                        </a></td>
+                </tr>
+                <?php
+            } else {
+                $empty = 'Er zijn nog geen afspraken gemaakt.';
+            }
+        } ?>
     </table>
     <p><?= $empty ?></p>
 </section>
