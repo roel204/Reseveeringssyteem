@@ -227,3 +227,9 @@ footer, footer p {
     padding: 10px;
 }
 
+#delete_label, #delete_button {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+

@@ -17,14 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $reasons[] = $row;
 }
 
-// Maak lege variableen in op later errors in te zetten.
-$nameError = '';
-$emailError = '';
-$reasonError = '';
-$dateError = '';
-$timeError = '';
-$date = '';
-
+$date = false;
 $reasonAnswer = '';
 $timeAnswer = '';
 $user_id = $_SESSION['loggedInUser']['id'];
@@ -41,19 +34,19 @@ if (isset($_POST['submit'])) {
 
     // Als iets leeg is dan geef error.
     if ($_POST['name'] == '') {
-        $nameError = 'Dit veld mag niet leeg zijn.';
+        $nameError = 'Vul een naam in.';
     }
     if ($_POST['email'] == '') {
-        $emailError = 'Dit veld mag niet leeg zijn.';
+        $emailError = 'Vul een email in.';
     }
     if ($_POST['reason_id'] == '') {
-        $reasonError = 'Dit veld mag niet leeg zijn.';
+        $reasonError = 'Kies het soort afspraak.';
     }
     if ($_POST['date'] == '') {
-        $dateError = 'Dit veld mag niet leeg zijn.';
+        $dateError = 'Kies een datum.';
     }
     if ($_POST['time'] == '') {
-        $timeError = 'Dit veld mag niet leeg zijn.';
+        $timeError = 'Kies een tijd.';
     }
 
     $selectedDate = $dateAnswer;
@@ -61,13 +54,13 @@ if (isset($_POST['submit'])) {
     $dayOfWeek = date("l", strtotime($selectedDate));
 
     if ($dayOfWeek == "Monday" || $dayOfWeek == "Tuesday" || $dayOfWeek == "Wednesday") {
-        $date = 'valid';
+        $date = true;
     } else {
         $dateError = 'Selecteer een datum die op Maandag, Dinsdag of Woensdag valt.';
     }
 
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time']) && $date == 'valid') {
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time']) && $date) {
         $query = "INSERT INTO reservations (`user_id`, `name`, `email`, `phone`, `reason_id`, `message`, `date`, `time`) VALUES ('$user_id', '$nameAnswer', '$emailAnswer', '$phoneAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
         mysqli_query($db, $query);
         header('Location: home.php');
@@ -102,14 +95,14 @@ mysqli_close($db);
                value="<?= $nameAnswer ?? $_SESSION['loggedInUser']['name'] ?>" hidden
                autocomplete="off">
     </section>
-    <p class="error"><?= $nameError ?></p>
+    <p class="error"><?= $nameError ?? '' ?></p>
     <section class="formfield">
         <!--        <label for="email">Email:<p class="error">*</p></label>-->
         <input type="email" name="email" id="email" placeholder="name@mail.com"
                value="<?= $emailAnswer ?? $_SESSION['loggedInUser']['email'] ?>" hidden
                autocomplete="off">
     </section>
-    <p class="error"><?= $emailError ?></p>
+    <p class="error"><?= $emailError ?? '' ?></p>
     <section class="formfield">
         <label for="phone">Telefoon:</label>
         <input type="tel" name="phone" id="phone" pattern="\d{2} \d{8}" placeholder="06 12345678"
@@ -131,7 +124,7 @@ mysqli_close($db);
             <?php } ?>
         </select>
     </section>
-    <p class="error"><?= $reasonError ?></p>
+    <p class="error"><?= $reasonError ?? '' ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
         <textarea name="message" id="message" autocomplete="off"><?= $messageAnswer ?? '' ?></textarea>
@@ -151,8 +144,8 @@ mysqli_close($db);
             <option value="16"<?php if ($timeAnswer == 16) echo "selected"; ?>>16:00 uur</option>
         </select>
     </section>
-    <p class="error"><?= $dateError ?></p>
-    <p class="error"><?= $timeError ?></p>
+    <p class="error"><?= $dateError ?? '' ?></p>
+    <p class="error"><?= $timeError ?? '' ?></p>
     <section class="formfield">
         <button type="submit" name="submit">NIEUWE AFSPRAAK</button>
     </section>

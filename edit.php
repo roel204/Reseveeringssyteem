@@ -29,21 +29,7 @@ $result = mysqli_query($db, $query) or die ('Error: ' . $query);
 // Stopt alle data in de row variable.
 $row = mysqli_fetch_assoc($result);
 
-// Maak lege variableen in op later data in te zetten.
-$nameAnswer = '';
-$emailAnswer = '';
-$phoneAnswer = '';
 $reasonAnswer = $row['reason_id'];
-$messageAnswer = '';
-$dateAnswer = '';
-$timeAnswer = '';
-
-// Maak lege variableen in op later errors in te zetten.
-$nameError = '';
-$emailError = '';
-$reasonError = '';
-$dateError = '';
-$timeError = '';
 $date = '';
 
 // Als submit dan zet alle data uit de post in de variabalen.
@@ -125,13 +111,13 @@ mysqli_close($db);
         <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>" hidden
                autocomplete="off">
     </section>
-    <p class="error"><?= $nameError ?></p>
+    <p class="error"><?= $nameError ?? '' ?></p>
     <section class="formfield">
         <!--        <label for="email">Email:<p class="error">*</p></label>-->
         <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $row['email']; ?>" hidden
                autocomplete="off">
     </section>
-    <p class="error"><?= $emailError ?></p>
+    <p class="error"><?= $emailError ?? '' ?></p>
     <section class="formfield">
         <label for="phone">Telefoon:</label>
         <input type="tel" name="phone" id="phone" placeholder="06 12345678" value="<?= $row['phone']; ?>"
@@ -153,7 +139,7 @@ mysqli_close($db);
             <?php } ?>
         </select>
     </section>
-    <p class="error"><?= $reasonError ?></p>
+    <p class="error"><?= $reasonError ?? '' ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
         <textarea name="message" id="message" autocomplete="off"><?= $row['message']; ?></textarea>
@@ -173,19 +159,19 @@ mysqli_close($db);
             <option value="16"<?php if ($row['time'] == 16) echo "selected"; ?>>16:00 uur</option>
         </select>
     </section>
-    <p class="error"><?= $dateError ?></p>
-    <p class="error"><?= $timeError ?></p>
+    <p class="error"><?= $dateError ?? '' ?></p>
+    <p class="error"><?= $timeError ?? '' ?></p>
     <section class="formfield">
-        <button type="submit" name="submit">EDIT</button>
+        <button type="submit" name="submit">AANPASSEN</button>
     </section>
 </form>
 <form action="" method="post" class="delete">
     <h2>Delete Afspraak</h2>
-    <section class="formfield">
-        <label for="delete_button">Weet u zeker dat u de afspraak wilt verwijderen?</label>
+    <section class="formfielde">
+        <label id="delete_label" for="delete_button">Weet u zeker dat u de afspraak wilt verwijderen?</label>
         <input type="checkbox" name="delete_button" id="delete_button" value="DELETE">
     </section>
-    <button type="submit">DELETE</button>
+    <button type="submit">VERWIJDER</button>
 </form>
 <footer>
     <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
