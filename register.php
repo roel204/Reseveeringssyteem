@@ -28,16 +28,24 @@ if (isset($_POST['submit'])) {
 
     // If data valid
     if (empty($errors)) {
-        // create a secure password, with the PHP function password_hash()
-        $password = password_hash($password, PASSWORD_DEFAULT);
-
-        // store the new user in the database.
-        $query = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+        $query = "SELECT * FROM users WHERE email='$email'";
         $result = mysqli_query($db, $query);
 
-        if ($result) {
-            header('Location: login.php');
-            exit;
+        // check if the user exists
+        if (mysqli_num_rows($result) == 1) {
+            $errors['account_exists'] = 'Er bestaat al een account met dit email address. Helaas kan dat account nog niet reset worden.';
+        } else {
+            // create a secure password, with the PHP function password_hash()
+            $password = password_hash($password, PASSWORD_DEFAULT);
+
+            // store the new user in the database.
+            $query = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+            $result = mysqli_query($db, $query);
+
+            if ($result) {
+                header('Location: login.php');
+                exit;
+            }
         }
     }
 }
@@ -72,6 +80,7 @@ if (isset($_POST['submit'])) {
                autocomplete="off">
     </section>
     <p class="error"><?= $errors['email'] ?? '' ?></p>
+    <p class="error"><?= $errors['account_exists'] ?? '' ?></p>
     <section class="formfield">
         <label for="password">Wachtwoord:</label>
         <input type="password" name="password" id="password" placeholder="Wachtwoord" autocomplete="off">
