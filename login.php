@@ -35,10 +35,6 @@ if (isset($_POST['submit'])) {
             // Get user data from result
             $user = mysqli_fetch_assoc($result);
 
-            $user = array_map(function ($innerArray) {
-                return array_map('htmlentities', $innerArray);
-            }, $user);
-
             // Check if the provided password matches the stored password in the database
             if (password_verify($password, $user['password'])) {
                 $login = true;

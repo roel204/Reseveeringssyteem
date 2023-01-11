@@ -48,7 +48,7 @@ mysqli_close($db);
 
 <body>
 <a class="back" href="logout.php">Uitloggen</a>
-<h1>Reseveeringssyssteem</h1>
+<h1>Parrotfarm afspraken systeem</h1>
 <h3><?= "Welkom, " . htmlentities($_SESSION['loggedInUser']['name']) . "!"; ?></h3>
 <section class="system">
     <a class="button" href="create.php">Nieuwe afspraak maken</a>

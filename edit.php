@@ -7,6 +7,7 @@ session_start();
 // Stuurt user terug als de pagina word bezocht zonder id.
 if (!isset($_GET['id'])) {
     header('Location: home.php');
+    exit;
 }
 
 // Connect met database.
@@ -32,17 +33,14 @@ $result = mysqli_query($db, $query) or die ('Error: ' . $query);
 // Stopt alle data in de row variable.
 $row = mysqli_fetch_assoc($result);
 
-$row = array_map(function ($innerArray) {
-    return array_map('htmlentities', $innerArray);
-}, $row);
-
 $reasonAnswer = $row['reason_id'];
 $date = '';
 
-if ($row['user_id'] != $_SESSION['loggedInUser']['id']) {
+if ($row['user_id'] != $_SESSION['loggedInUser']['id'] && $_SESSION['loggedInUser']['admin'] != 1) {
     header('Location: home.php');
     exit;
 }
+
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
