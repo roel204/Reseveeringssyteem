@@ -44,8 +44,6 @@ if ($row['user_id'] != $_SESSION['loggedInUser']['id'] && $_SESSION['loggedInUse
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
-    $nameAnswer = mysqli_real_escape_string($db, $_POST['name']);
-    $emailAnswer = mysqli_real_escape_string($db, $_POST['email']);
     $phoneAnswer = mysqli_real_escape_string($db, $_POST['phone']);
     $reasonAnswer = mysqli_real_escape_string($db, $_POST['reason']);
     $messageAnswer = mysqli_real_escape_string($db, $_POST['message']);
@@ -53,20 +51,17 @@ if (isset($_POST['submit'])) {
     $timeAnswer = mysqli_real_escape_string($db, $_POST['time']);
 
     // Als iets leeg is dan geef error.
-    if ($_POST['name'] == '') {
-        $nameError = 'Dit veld mag niet leeg zijn.';
-    }
-    if ($_POST['email'] == '') {
-        $emailError = 'Dit veld mag niet leeg zijn.';
-    }
     if ($_POST['reason'] == '') {
         $reasonError = 'Dit veld mag niet leeg zijn.';
     }
+    $dategood = false;
     if (isset($_POST['date'])) {
         $inputDate = strtotime(mysqli_real_escape_string($db, $_POST['date']));
         $currentDate = strtotime(date('Y-m-d'));
         if ($inputDate <= $currentDate) {
             $dateError = 'Deze datum is in het verleden.';
+        } else {
+            $dategood = true;
         }
     }
     if ($_POST['time'] == '') {
@@ -84,8 +79,8 @@ if (isset($_POST['submit'])) {
     }
 
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time']) && $date == 'valid' && $inputDate > $currentDate) {
-        $query = "UPDATE `reservations` SET `name`='$nameAnswer',`email`='$emailAnswer', `phone`='$phoneAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`date`='$dateAnswer',`time`='$timeAnswer'WHERE id = '$id'";
+    if (!empty($_POST['reason']) && !empty($_POST['date']) && !empty($_POST['time']) && $date == 'valid' && $dategood) {
+        $query = "UPDATE `reservations` SET `phone`='$phoneAnswer',`reason_id`='$reasonAnswer',`message`='$messageAnswer',`date`='$dateAnswer',`time`='$timeAnswer'WHERE id = '$id'";
         mysqli_query($db, $query);
         header('Location: home.php');
         exit;
@@ -121,18 +116,6 @@ mysqli_close($db);
 <form action="" method="post" class="create">
     <h2>Edit Afspraak</h2>
     <section class="formfield">
-        <!--        <label for="naam">Naam:<p class="error">*</p></label>-->
-        <input type="text" name="name" id="naam" placeholder="Voornaam Achternaam" value="<?= $row['name']; ?>" hidden
-               autocomplete="off">
-    </section>
-    <p class="error"><?= $nameError ?? '' ?></p>
-    <section class="formfield">
-        <!--        <label for="email">Email:<p class="error">*</p></label>-->
-        <input type="email" name="email" id="email" placeholder="name@mail.com" value="<?= $row['email']; ?>" hidden
-               autocomplete="off">
-    </section>
-    <p class="error"><?= $emailError ?? '' ?></p>
-    <section class="formfield">
         <label for="phone">Telefoon:</label>
         <input type="tel" name="phone" id="phone" placeholder="06 12345678" value="<?= $row['phone']; ?>"
                autocomplete="off">
@@ -145,7 +128,7 @@ mysqli_close($db);
         </script>
     </section>
     <section class="formfield">
-        <label for="reason">Afspraak:<p class="error">*</p></label>
+        <label for="reason">Afspraak:<span class="error">*</span></label>
         <select name="reason" id="reason">
             <?php foreach ($reasons as $reason) { ?>
                 <option value=""<?php if ($reasonAnswer == '') echo "selected"; ?> hidden>Maak een keuze.</option>
@@ -159,9 +142,9 @@ mysqli_close($db);
         <textarea name="message" id="message" autocomplete="off"><?= $row['message']; ?></textarea>
     </section>
     <section class="formfield">
-        <label for="date">Datum:<p class="error">*</p></label>
+        <label for="date">Datum:<span class="error">*</span></label>
         <input type="date" name="date" id="date" value="<?= $row['date']; ?>">
-        <label for="time">Tijd:<p class="error">*</p></label>
+        <label for="time">Tijd:<span class="error">*</span></label>
         <select name="time" id="time">
             <option value=""<?php if ($row['time'] == '') echo "selected"; ?> hidden>Kies een tijd.</option>
             <option value="10"<?php if ($row['time'] == 10) echo "selected"; ?>>10:00 uur</option>
