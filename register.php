@@ -4,10 +4,10 @@ if (isset($_POST['submit'])) {
     require_once "connection.php";
 
     // Get form data
-    $name = mysqli_escape_string($db, $_POST['name']);
-    $email = mysqli_escape_string($db, $_POST['email']);
-    $password = mysqli_escape_string($db, $_POST['password']);
-    $password_repeat = mysqli_escape_string($db, $_POST['password_repeat']);
+    $name = mysqli_real_escape_string($db, $_POST['name']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $password = $_POST['password'];
+    $password_repeat = $_POST['password_repeat'];
 
     // Server-side validation
     $errors = [];
@@ -16,6 +16,11 @@ if (isset($_POST['submit'])) {
     }
     if ($email == '') {
         $errors['email'] = 'Vul een email in.';
+    }
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //This email is valid
+    } else {
+        $errors['email'] = 'Dit email address bestaat niet.';
     }
     if ($password == '') {
         $errors['password'] = 'Vul een wachtwoord in.';

@@ -20,15 +20,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     $reservations[] = $row;
 }
 
+$reservations = array_map(function ($innerArray) {
+    return array_map('htmlentities', $innerArray);
+}, $reservations);
+
 usort($reservations, function ($a, $b) {
     $a_timestamp = strtotime($a['date'] . ' ' . $a['time'] . ':00:00');
     $b_timestamp = strtotime($b['date'] . ' ' . $b['time'] . ':00:00');
     return $a_timestamp - $b_timestamp;
 });
-
-$empty = '';
-
-// Close connection met database.
 mysqli_close($db);
 ?>
 
@@ -49,26 +49,27 @@ mysqli_close($db);
 <body>
 <a class="back" href="logout.php">Uitloggen</a>
 <h1>Reseveeringssyssteem</h1>
-<h3><?= "Welkom, " . $_SESSION['loggedInUser']['name'] . "!"; ?></h3>
+<h3><?= "Welkom, " . htmlentities($_SESSION['loggedInUser']['name']) . "!"; ?></h3>
 <section class="system">
     <a class="button" href="create.php">Nieuwe afspraak maken</a>
     <table>
-        <?php foreach ($reservations as $klant) {
+        <tr>
+            <th id="table_name">Naam</th>
+            <th id="table_email">Email</th>
+            <th id="table_phone">Telefoon</th>
+            <th id="table_reason">Afspraak</th>
+            <th id="table_message">Bericht</th>
+            <th id="table_date">Datum/Tijd</th>
+            <th id="table_edit">Edit</th>
+        </tr>
+        <?php $found = false;
+        foreach ($reservations as $klant) {
             // Check if the user's ID matches the user ID associated with the data being displayed
             if ($klant['user_id'] == $_SESSION['loggedInUser']['id'] || $_SESSION['loggedInUser']['admin'] == 1) {
-                // If the IDs match, show the data
+                $found = true;
                 ?>
                 <tr>
-                    <th id="table_name">Naam</th>
-                    <th id="table_email">Email</th>
-                    <th id="table_phone">Telefoon</th>
-                    <th id="table_reason">Afspraak</th>
-                    <th id="table_message">Bericht</th>
-                    <th id="table_date">Datum/Tijd</th>
-                    <th id="table_edit">Edit</th>
-                </tr>
-                <tr>
-                    <?php $text = $klant['name'];
+                    <?php $text = htmlentities($klant['name']);
                     if (strlen($text) > 20) {
                         $text = substr($text, 0, 20) . "...";
                     }
@@ -93,12 +94,14 @@ mysqli_close($db);
                         </a></td>
                 </tr>
                 <?php
-            } else {
-                $empty = 'Er zijn nog geen afspraken gemaakt.';
             }
-        } ?>
+        }
+        if (!$found) {
+            $empty = 'Er zijn nog geen afspraken gemaakt.';
+        }
+        ?>
     </table>
-    <p><?= $empty ?></p>
+    <p><?= $empty ?? '' ?></p>
 </section>
 <footer>
     <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>

@@ -24,13 +24,13 @@ $user_id = $_SESSION['loggedInUser']['id'];
 
 // Als submit dan zet alle data uit de post in de variabalen.
 if (isset($_POST['submit'])) {
-    $nameAnswer = $_POST['name'];
-    $emailAnswer = $_POST['email'];
-    $phoneAnswer = $_POST['phone'];
-    $reasonAnswer = $_POST['reason_id'];
-    $messageAnswer = $_POST['message'];
-    $dateAnswer = $_POST['date'];
-    $timeAnswer = $_POST['time'];
+    $nameAnswer = mysqli_real_escape_string($db, $_POST['name']);
+    $emailAnswer = mysqli_real_escape_string($db, $_POST['email']);
+    $phoneAnswer = mysqli_real_escape_string($db, $_POST['phone']);
+    $reasonAnswer = mysqli_real_escape_string($db, $_POST['reason_id']);
+    $messageAnswer = mysqli_real_escape_string($db, $_POST['message']);
+    $dateAnswer = mysqli_real_escape_string($db, $_POST['date']);
+    $timeAnswer = mysqli_real_escape_string($db, $_POST['time']);
 
     // Als iets leeg is dan geef error.
     if ($_POST['name'] == '') {
@@ -42,8 +42,12 @@ if (isset($_POST['submit'])) {
     if ($_POST['reason_id'] == '') {
         $reasonError = 'Kies het soort afspraak.';
     }
-    if ($_POST['date'] == '') {
-        $dateError = 'Kies een datum.';
+    if (isset($_POST['date'])) {
+        $inputDate = strtotime(mysqli_real_escape_string($db, $_POST['date']));
+        $currentDate = strtotime(date('Y-m-d'));
+        if ($inputDate <= $currentDate) {
+            $dateError = 'Deze datum is in het verleden.';
+        }
     }
     if ($_POST['time'] == '') {
         $timeError = 'Kies een tijd.';
@@ -60,7 +64,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Als alles ingevult is dan stuur door naar de dabase en stuur door naar index pagina.
-    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time']) && $date) {
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['reason_id']) && !empty($_POST['date']) && !empty($_POST['time']) && $date && $inputDate > $currentDate) {
         $query = "INSERT INTO reservations (`user_id`, `name`, `email`, `phone`, `reason_id`, `message`, `date`, `time`) VALUES ('$user_id', '$nameAnswer', '$emailAnswer', '$phoneAnswer', '$reasonAnswer', '$messageAnswer', '$dateAnswer', '$timeAnswer')";
         mysqli_query($db, $query);
         header('Location: home.php');
