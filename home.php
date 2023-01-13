@@ -25,8 +25,8 @@ $reservations = array_map(function ($innerArray) {
 }, $reservations);
 
 usort($reservations, function ($a, $b) {
-    $a_timestamp = strtotime($a['date'] . ' ' . $a['time'] . ':00:00');
-    $b_timestamp = strtotime($b['date'] . ' ' . $b['time'] . ':00:00');
+    $a_timestamp = strtotime($a['date'] . ' ' . $a['time_start'] . ':00:00');
+    $b_timestamp = strtotime($b['date'] . ' ' . $b['time_start'] . ':00:00');
     return $a_timestamp - $b_timestamp;
 });
 mysqli_close($db);
@@ -87,7 +87,8 @@ mysqli_close($db);
                     }
                     echo "<td>$text</td>"; ?>
                     <td><?= date('d M Y', strtotime($klant['date'])) ?>
-                        | <?= $klant['time'] ?>:00
+                        | <?= date("H:i", strtotime($klant['time_start'])) ?>
+                        - <?= date("H:i", strtotime($klant['time_end'])) ?>
                     </td>
                     <td><a href="edit.php?id=<?= $klant['id']; ?>">
                             <img src="images/edit-icon.png" alt="Edit" width="25px">
