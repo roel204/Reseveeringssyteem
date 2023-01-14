@@ -18,6 +18,12 @@
 <a class="button" href="register.php">Registreer</a>
 <br>
 <a class="button" href="login.php">Log In</a>
+
+<p>Deze webiste is gemaakt voor parrotfarm on te gebruiken als reserveeringssyteem. <br> U kunt Parrotfarm nogsteeds
+    bellen of mailen om een afspraak te maken. Dit zit systeem zit er als een extra bij.
+    <br> Tel: 11111111 <br> Email: efndiefhwifhwq <br> Deze website werkt helaas niet heel goed op een mobiel apparaat.
+</p>
+
 <footer>
     <p>Gemaakt door Roel Hoogendoorn als project voor school.</p>
 </footer>

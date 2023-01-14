@@ -275,3 +275,96 @@ footer, footer p {
     font-size: 1.2em;
     color: #999;
 }
+
+/* Mobile-specific styles */
+@media only screen and (max-width: 600px) {
+    /* Change font size on smaller screens */
+    h1 {
+        font-family: Sigmar_One, Arial, sans-serif;
+        color: #1B2266;
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-family: Sigmar_One, Arial, sans-serif;
+        color: #1B2266;
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-family: Acme, Arial, sans-serif;
+        color: #1B2266;
+        font-size: 1rem;
+    }
+
+    p {
+        font-family: Alegreya_Sans, Arial, sans-serif;
+        color: #1B2266;
+        font-size: 0.8rem;
+    }
+
+    /* Stack buttons vertically instead of horizontally */
+    .button {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    /* Make the back button take up less space */
+    .back {
+        width: 30%;
+        left: 5px;
+        top: 5px;
+        padding: 5px 10px;
+    }
+
+    /* Make the table take up the whole screen */
+    table {
+        width: 100%;
+    }
+
+    /* Make the form take up the whole screen */
+    form {
+        margin: 2% 0;
+    }
+
+    /* Make the input and label take up the whole width */
+    input,
+    select,
+    button,
+    textarea,
+    label {
+        width: 100%;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    /* Make the date, start time, and end time inputs take up less space */
+    #date {
+        width: 150%;
+        margin-right: 0;
+    }
+
+    #time_start {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    #time_end {
+        width: 100%;
+    }
+
+    .time_label {
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .time_end_label {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .date_label {
+        padding-right: 0;
+    }
+}
