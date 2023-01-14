@@ -19,9 +19,11 @@
 <br>
 <a class="button" href="login.php">Log In</a>
 
-<p>Deze webiste is gemaakt voor parrotfarm on te gebruiken als reserveeringssyteem. <br> U kunt Parrotfarm nogsteeds
+<p>Deze website is gemaakt voor parrotfarm om te gebruiken als afspraken systeem. <br> U kunt Parrotfarm nogsteeds
     bellen of mailen om een afspraak te maken. Dit zit systeem zit er als een extra bij.
-    <br> Tel: 11111111 <br> Email: efndiefhwifhwq <br> Deze website werkt helaas niet heel goed op een mobiel apparaat.
+    <br> Tel: +31 6 38 43 28 50 / +31 6 14 58 16 18 <br> Email: <a
+            href="mailto:els@parrotfarm.com" target="_blank">els@parrotfarm.com</a> <br> Deze website werkt helaas niet
+    heel goed op een mobiel apparaat.
 </p>
 
 <footer>
