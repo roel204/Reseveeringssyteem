@@ -62,29 +62,29 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($db, $query);
     $appointment = mysqli_fetch_assoc($result);
     if ($appointment) {
-        $errors['time'] = 'An appointment already exists at this time.';
+        $errors['time'] = 'Iemand anders heeft al een afspraak om deze tijd.';
     }
 
     $time_diff = strtotime($time_endAnswer) - strtotime($time_startAnswer);
     $time_diff_hours = $time_diff / 3600;
     if ($time_diff_hours > 2) {
-        $errors['time'] = 'The maximum length between start and end time is 2 hours.';
+        $errors['time'] = 'De maximale lengte van een afspraak is 2 uur.';
     }
 
     $time_diff = strtotime($time_endAnswer) - strtotime($time_startAnswer);
     $time_diff_minutes = $time_diff / 60;
     if ($time_diff_minutes < 30) {
-        $errors['time'] = 'The minimum length between start and end time is 30 minutes.';
+        $errors['time'] = 'De minimale lengte van een afspraak is 30 minuten.';
     }
 
     $time_start_formatted = date("H:i", strtotime($time_startAnswer));
     $time_end_formatted = date("H:i", strtotime($time_endAnswer));
     if ((strtotime($time_start_formatted) < strtotime("10:00")) || (strtotime($time_end_formatted) > strtotime("17:00"))) {
-        $errors['time'] = 'The time must be between 10:00 and 17:00.';
+        $errors['time'] = 'De afspraak moet tussen 10:00 en 17:00 zijn.';
     }
 
     if (strtotime($time_startAnswer) >= strtotime($time_endAnswer)) {
-        $errors['time'] = 'The start time must be earlier than the end time.';
+        $errors['time'] = 'De begin tijd moet eerder zijn dan de eind tijd.';
     }
 
     if ($_POST['time_start'] == '' || $_POST['time_end'] == '') {

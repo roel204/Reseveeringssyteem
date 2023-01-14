@@ -25,10 +25,13 @@ $reservations = array_map(function ($innerArray) {
 }, $reservations);
 
 usort($reservations, function ($a, $b) {
-    $a_timestamp = strtotime($a['date'] . ' ' . $a['time_start'] . ':00:00');
-    $b_timestamp = strtotime($b['date'] . ' ' . $b['time_start'] . ':00:00');
+    $a_datetime = $a['date'] . ' ' . $a['time_start'];
+    $b_datetime = $b['date'] . ' ' . $b['time_start'];
+    $a_timestamp = strtotime($a_datetime);
+    $b_timestamp = strtotime($b_datetime);
     return $a_timestamp - $b_timestamp;
 });
+
 mysqli_close($db);
 ?>
 
@@ -70,20 +73,20 @@ mysqli_close($db);
                 ?>
                 <tr>
                     <?php $text = htmlentities($klant['name']);
-                    if (strlen($text) > 20) {
-                        $text = substr($text, 0, 20) . "...";
+                    if (strlen($text) > 15) {
+                        $text = substr($text, 0, 15) . "...";
                     }
                     echo "<td>$text</td>";
                     $text = $klant['email'];
-                    if (strlen($text) > 20) {
-                        $text = substr($text, 0, 20) . "...";
+                    if (strlen($text) > 15) {
+                        $text = substr($text, 0, 15) . "...";
                     }
                     echo "<td>$text</td>"; ?>
                     <td><?= $klant['phone'] ?></td>
                     <td><?= $klant['reason_name']; ?></td>
                     <?php $text = $klant['message'];
-                    if (strlen($text) > 20) {
-                        $text = substr($text, 0, 20) . "...";
+                    if (strlen($text) > 15) {
+                        $text = substr($text, 0, 15) . "...";
                     }
                     echo "<td>$text</td>"; ?>
                     <td><?= date('d M Y', strtotime($klant['date'])) ?>
