@@ -11,8 +11,7 @@ $query = "
 SELECT reservations.*, reasons.name AS reason_name 
 FROM reservations
 LEFT JOIN reasons ON reasons.id = reservations.reason_id";
-$result = mysqli_query($db, $query)
-or die('Error ' . mysqli_error($db) . ' with query ' . $query);
+$result = mysqli_query($db, $query);
 
 // Maak lege array aan en zet alle resultaten er in.
 $reservations = [];

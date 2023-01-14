@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 // Query voor de rest van de data.
 $query = "SELECT * FROM reservations WHERE id = '$id';";
-$result = mysqli_query($db, $query) or die ('Error: ' . $query);
+$result = mysqli_query($db, $query);
 
 // Stopt alle data in de row variable.
 $row = mysqli_fetch_assoc($result);
