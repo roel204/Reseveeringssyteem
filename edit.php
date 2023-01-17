@@ -31,10 +31,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 $query = "SELECT * FROM reservations WHERE id = '$id';";
 $result = mysqli_query($db, $query);
 
-// Stopt alle data in de row variable.
 $row = mysqli_fetch_assoc($result);
 
-$reasonAnswer = $row['reason_id'];
+$reasonAnswer = htmlentities($row['reason_id']);
 $date = '';
 
 if ($row['user_id'] != $_SESSION['loggedInUser']['id'] && $_SESSION['loggedInUser']['admin'] != 1) {
@@ -148,7 +147,7 @@ mysqli_close($db);
     <h2>Edit Afspraak</h2>
     <section class="formfield">
         <label for="phone">Telefoon:</label>
-        <input type="tel" name="phone" id="phone" placeholder="06 12345678" value="<?= $row['phone']; ?>"
+        <input type="tel" name="phone" id="phone" placeholder="06 12345678" value="<?= htmlentities($row['phone']); ?>"
                autocomplete="off">
         <script>
             document.getElementById('phone').addEventListener('input', function (e) {
@@ -170,15 +169,15 @@ mysqli_close($db);
     <p class="error"><?= $errors['reason'] ?? '' ?></p>
     <section class="formfield">
         <label for="message">bericht:</label>
-        <textarea name="message" id="message" autocomplete="off"><?= $row['message']; ?></textarea>
+        <textarea name="message" id="message" autocomplete="off"><?= htmlentities($row['message']); ?></textarea>
     </section>
     <section class="formfield">
         <label class="date_label" for="date">Datum:<span class="error">*</span></label>
-        <input type="date" name="date" id="date" value="<?= $row['date'] ?>">
+        <input type="date" name="date" id="date" value="<?= htmlentities($row['date']) ?>">
         <label class="time_label" for="time_start">Vanaf:<span class="error">*</span></label>
-        <input type="time" name="time_start" id="time_start" value="<?= $row['time_start']; ?>" step="60">
+        <input type="time" name="time_start" id="time_start" value="<?= htmlentities($row['time_start']); ?>" step="60">
         <label class="time_end_label" for="time_end">Tot:<span class="error">*</span></label>
-        <input type="time" name="time_end" id="time_end" value="<?= $row['time_end']; ?>" step="60">
+        <input type="time" name="time_end" id="time_end" value="<?= htmlentities($row['time_end']); ?>" step="60">
     </section>
     <p class="error"><?= $errors['date'] ?? '' ?></p>
     <p class="error"><?= $errors['time'] ?? '' ?></p>

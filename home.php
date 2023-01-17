@@ -75,7 +75,7 @@ mysqli_close($db);
                 $found = true;
                 ?>
                 <tr>
-                    <?php $text = htmlentities($klant['name']);
+                    <?php $text = $klant['name'];
                     if (strlen($text) > 15) {
                         $text = substr($text, 0, 15) . "...";
                     }
