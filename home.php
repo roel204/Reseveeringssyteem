@@ -6,6 +6,10 @@ session_start();
 // Conect met database.
 require_once 'connection.php';
 
+if (!isset($_SESSION['loggedInUser'])) {
+    header('location: login.php');
+}
+
 // Query die naar database word gestuurd. Levert de hele reservations tabel + name regel uit reasons tabel. De reason_id word gekoppeld aan reasons_id.
 $query = "
 SELECT reservations.*, reasons.name AS reason_name 

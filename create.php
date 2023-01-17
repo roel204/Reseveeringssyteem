@@ -7,6 +7,10 @@ session_start();
 // Connect met database.
 require_once 'connection.php';
 
+if (!isset($_SESSION['loggedInUser'])) {
+    header('location: login.php');
+}
+
 // Query om de reasons op te halen uit de database.
 $query = "SELECT * FROM reasons";
 $result = mysqli_query($db, $query);

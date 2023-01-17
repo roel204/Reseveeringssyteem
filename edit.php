@@ -3,15 +3,16 @@
 session_start();
 
 /** @var array $db */
+require_once 'connection.php';
 
-// Stuurt user terug als de pagina word bezocht zonder id.
+if (!isset($_SESSION['loggedInUser'])) {
+    header('location: login.php');
+}
+
 if (!isset($_GET['id'])) {
     header('Location: home.php');
     exit;
 }
-
-// Connect met database.
-require_once 'connection.php';
 
 // Maak variable aan en stop id er in.
 $id = mysqli_real_escape_string($db, $_GET['id']);
