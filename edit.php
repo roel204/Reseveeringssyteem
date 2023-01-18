@@ -91,7 +91,6 @@ if (isset($_POST['submit'])) {
         $errors['time'] = 'Kies een tijd.';
     }
 
-    $dategood = false;
     if (isset($_POST['date'])) {
         $inputDate = strtotime(mysqli_real_escape_string($db, $_POST['date']));
         $currentDate = strtotime(date('Y-m-d'));
