@@ -34,7 +34,6 @@ $result = mysqli_query($db, $query);
 $row = mysqli_fetch_assoc($result);
 
 $reasonAnswer = htmlentities($row['reason_id']);
-$date = '';
 
 if ($row['user_id'] != $_SESSION['loggedInUser']['id'] && $_SESSION['loggedInUser']['admin'] != 1) {
     header('Location: home.php');
